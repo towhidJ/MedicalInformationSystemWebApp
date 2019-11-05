@@ -4,11 +4,17 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Ward List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a href="@Url.Action("Create","Appointment")" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Appointment</a>
+    </div>
+</div>
+<br />
 <table class="table">
     <tr>
         <th>
@@ -29,33 +35,34 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DoctorTB.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AppointmentDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AppointmentNumber)
-        </td>
-        <td style="width: 100px">
-            <div class="btn-group">
-                <a class="btn btn-primary" href="@Url.Action("Edit", "Appointment", new {id = item.AppointmentId})"><i class="far fa-edit"></i></a>
-                <a class="btn btn-success" href="@Url.Action("Details", "Appointment", new {id = item.AppointmentId})"><i class="fas fa-list-ul"></i></a>
-                <a class="btn btn-danger" href="@Url.Action("Delete", "Appointment", new {id = item.AppointmentId})"><i class="fas fa-trash-alt"></i></a>
-                <a class="btn btn-dark" href="@Url.Action("Print", "Appointment", new {id = item.AppointmentId})"><i class="fas fa-print"></i></a>
-                
-            </div>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoctorTB.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppointmentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppointmentNumber)
+            </td>
+            <td style="width: 100px">
+                <div class="btn-group">
+                    <a class="btn btn-primary" href="@Url.Action("Edit", "Appointment", new {id = item.AppointmentId})"><i class="far fa-edit"></i></a>
+                    <a class="btn btn-success" href="@Url.Action("Details", "Appointment", new {id = item.AppointmentId})"><i class="fas fa-list-ul"></i></a>
+                    <a class="btn btn-danger" href="@Url.Action("Delete", "Appointment", new {id = item.AppointmentId})"><i class="fas fa-trash-alt"></i></a>
+                    <a class="btn btn-dark" href="@Url.Action("Print", "Appointment", new {id = item.AppointmentId})"><i class="fas fa-print"></i></a>
+
+                </div>
+            </td>
+        </tr>
+    }
 
 </table>
