@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Pacifico|Righteous|Roboto+Condensed|Ubuntu&display=swap');
+
+
+#wrapper {
+    height: 100%;
+    width: 90%;
+    margin: 10px auto;
+    padding-right: 30px;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    /* border: 3px solid black;
+    background: azure; */
+}
+
+.navbar-brand {
+    font-family: 'Pacifico';
+    font-size: 35px;
+    color: lightcoral !important;
+}
+
+.site-title{
+    color: green;
+    font-family: 'Righteous';
+}
+
+.site-appoint{
+    color: black;
+    font-family: 'Righteous';
+}

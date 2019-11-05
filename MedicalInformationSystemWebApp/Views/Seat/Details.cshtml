@@ -1,0 +1,34 @@
+﻿@model MedicalInformationSystemWebApp.Models.CodeFirstModel.SeatTB
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="p-4 border rounded">
+    <h4 class="text-center text-info">Seat Recoard</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WardTB.WardNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WardTB.WardNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SeatNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SeatNo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

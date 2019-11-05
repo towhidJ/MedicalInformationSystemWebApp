@@ -1,0 +1,136 @@
+﻿@model MedicalInformationSystemWebApp.Models.CodeFirstModel.DoctorTB
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="p-4 border rounded form-design animated lightSpeedIn">
+    <h4 class="text-center text-info">Details Doctor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentTB.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentTB.DepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DesignationTB.DesignationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DesignationTB.DesignationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleTB.Role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoleTB.Role)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpealizationTB.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpealizationTB.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dob)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dob)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Visit Time")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VisitingTimeStart)<span>-</span>@Html.DisplayFor(model=>model.VisitingTimeEnd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VisitDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VisitDay)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+
+        <dd>
+            <img class="rounded-circle" src="~/Content/EmployeeImage/@Model.ImagePath" width="50" height="50" />
+            @*@Html.DisplayFor(model => model.ImagePath)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Joined)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Joined)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.HiddenFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.HiddenFor(model => model.Password)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DoctorId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,74 @@
+﻿@model MedicalInformationSystemWebApp.Models.CodeFirstModel.AppointmentTB
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="p-4 border rounded">
+
+    <h4 class="text-center text-info">Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DoctorTB.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DoctorTB.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppointmentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppointmentDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppointmentNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AppointmentFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppointmentFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppointmentNumber)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AppointmentId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

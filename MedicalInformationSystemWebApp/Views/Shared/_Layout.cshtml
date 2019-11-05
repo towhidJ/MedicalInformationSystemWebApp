@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/sweetalert2/Animation.css" rel="stylesheet" />
+    <link href="~/Content/CustomCss/global.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/38501fe14e.js"></script>
+    <link href="~/Content/CustomCss/_Layout.css" rel="stylesheet" />
+    <link href="~/Content/CustomCss/aspnetajexcdn.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+    @RenderSection("Style", required: false)
+</head>
+<body >
+
+    <header>
+
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a href="#" class="navbar-brand">JoyaM<span style="color: #00E8E8">:)</span></a>
+            @*<a href="#" class="navbar-brand">Mdi:)<span style="color: #00E8E8">al</span></a>*@
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle Navigation">
+                <span class=" navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse"></div>
+
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class=" nav navbar-nav mr-auto">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item active">
+                            <a href="@Url.Action("Index", "Home")" class="nav-link">Home</a>
+                        </li>
+                        <li class=" nav-item">
+                            <a href="@Url.Action("Contact", "Home")" class="nav-link">ContactUs</a>
+                        </li>
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "Appointment")" class="nav-link">Appointment</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "Doctor")" class="nav-link">Doctor</a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Index", "Nurse")" class="nav-link">Nurse</a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Index", "Reception")" class="nav-link">Reception</a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Index", "Staff")" class="nav-link">Staff</a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Index", "Seat")" class="nav-link">Seat</a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Index", "Ward")" class="nav-link">Ward</a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Logout", "Account")" class="nav-link">Logout</a>
+                            </li>
+                        }
+                        else if (User.IsInRole("Doctor"))
+                        {
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Create", "PrescribeTest")" class="nav-link">Prescribe Test</a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Logout", "Account")" class="nav-link">Logout</a>
+                            </li>
+                        }
+                        else if (User.IsInRole("Nurse"))
+                        {
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Logout", "Account")" class="nav-link">Logout</a>
+                            </li>
+                        }
+                        else if (User.IsInRole("Reception"))
+                        {
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Logout", "Account")" class="nav-link">Logout</a>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="nav-item active">
+                            <a href="@Url.Action("Index", "Home")" class="nav-link">Home</a>
+                        </li>
+                        <li class=" nav-item">
+                            <a href="@Url.Action("Contact", "Home")" class="nav-link">ContactUs</a>
+                        </li>
+                        <li class=" nav-item">
+                            <a href="@Url.Action("Login", "Account")" class="nav-link">Login</a>
+                        </li>
+                    }
+
+                </ul>
+
+                @*<form class=" form-inline my-2 my-lg-0">
+                    <button class=" btn menu-right-btn border" type="submit">
+                        Hello
+                    </button>
+                </form>*@
+            </div>
+
+        </nav>
+    </header>
+
+    <div class="container body-content">
+        @RenderBody()
+        <footer>
+           
+            <div class="section-5 text-center">
+                <hr>
+
+            <h5 style="color: lightseagreen">Team-71 &copy;</h5>
+            </div>
+
+        </footer>
+    </div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Content/HomePage/Js&CSS/popper.min.js"></script>
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jqueryDataTables")
+@RenderSection("scripts", required: false)
+
+</body>
+</html>

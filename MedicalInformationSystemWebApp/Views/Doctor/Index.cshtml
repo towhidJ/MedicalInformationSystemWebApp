@@ -1,0 +1,103 @@
+﻿@model IEnumerable<MedicalInformationSystemWebApp.Models.CodeFirstModel.DoctorTB>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section Style
+{
+
+}
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Doctor List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a href="@Url.Action("Create","Doctor")" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Add Doctor</a>
+    </div>
+</div>
+<br />
+<table class="table form-design animated lightSpeedIn " id="doctorTable">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentTB.DepartmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DesignationTB.DesignationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpealizationTB.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th>
+            Action
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img class="rounded-circle" src="~/Content/EmployeeImage/@item.ImagePath" width="50" height="50" />
+
+                    @*<a href="~/Content/EmployeeImage/@item.ImagePath">@Html.DisplayFor(modelItem => item.ImagePath)</a>*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentTB.DepartmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DesignationTB.DesignationName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpealizationTB.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td style="width: 100px">
+                    <div class="btn-group">
+                        <a class="btn btn-primary" href="@Url.Action("Edit", "Doctor", new {id = item.DoctorId})"><i class="far fa-edit"></i></a>
+                        <a class="btn btn-success" href="@Url.Action("Details", "Doctor", new {id = item.DoctorId})"><i class="fas fa-list-ul"></i></a>
+                        <a class="btn btn-danger" href="@Url.Action("Delete", "Doctor", new {id = item.DoctorId})"><i class="fas fa-trash-alt"></i></a>
+                    </div>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+    <tfoot></tfoot>
+
+</table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#doctorTable").DataTable();
+        });
+    </script>
+
+}

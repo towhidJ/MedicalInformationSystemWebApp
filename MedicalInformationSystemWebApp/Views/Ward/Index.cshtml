@@ -1,0 +1,60 @@
+﻿@model IEnumerable<MedicalInformationSystemWebApp.Models.CodeFirstModel.WardTB>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Ward List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a href="@Url.Action("Create","Ward")" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Add Ward</a>
+    </div>
+</div>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentTB.DepartmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WardNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SeatQuentity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AvailableSeat)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentTB.DepartmentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WardNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatQuentity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvailableSeat)
+            </td>
+            <td style="width: 100px">
+                <div class="btn-group">
+                    <a class="btn btn-primary" href="@Url.Action("Edit", "Ward", new {id = item.Id})"><i class="far fa-edit"></i></a>
+                    <a class="btn btn-success" href="@Url.Action("Details", "Ward", new {id = item.Id})"><i class="fas fa-list-ul"></i></a>
+                    <a class="btn btn-danger" href="@Url.Action("Delete", "Ward", new {id = item.Id})"><i class="fas fa-trash-alt"></i></a>
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>

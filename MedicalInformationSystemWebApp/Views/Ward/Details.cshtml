@@ -1,0 +1,57 @@
+﻿@model MedicalInformationSystemWebApp.Models.CodeFirstModel.WardTB
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="p-4 border rounded text-center form-design animated bounceInUp">
+    <h4 class="text-center text-info">Ward Recoard</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentTB.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentTB.DepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WardNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WardNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SeatQuentity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SeatQuentity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AvailableSeat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AvailableSeat)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSeat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalSeat)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

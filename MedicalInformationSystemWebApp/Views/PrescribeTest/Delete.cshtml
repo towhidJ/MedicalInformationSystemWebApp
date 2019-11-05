@@ -1,0 +1,48 @@
+﻿@model MedicalInformationSystemWebApp.Models.CodeFirstModel.PrescribeTestTB
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div class=" text-center form-design animated lightSpeedIn">
+    <h4 class="text-center text-info">Patient Test Prescribtation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DoctorTB.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DoctorTB.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientTB.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientTB.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

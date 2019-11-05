@@ -1,0 +1,180 @@
+﻿@model MedicalInformationSystemWebApp.Models.CodeFirstModel.AppointmentTB
+
+@{
+    ViewBag.Title = "Create";
+}
+@section Style
+{
+    <style>
+        * {
+            color:black;
+        }
+    </style>
+
+}
+@section scripts
+{
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Content/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <link href="~/Content/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/Content/sweetalert2/Animation.css" rel="stylesheet" />
+    <script>
+        $(document).ready(function () {
+            $("#AppointmentDate").datepicker();
+
+            $('#AppointmentDate').on('change',
+                function () {
+                    var dId = $('#DoctorId').val();
+                    var appDate = $('#AppointmentDate').val();
+                    var d = new Date();
+                    //d.format("dd/mm/yyyy");
+                    var json = {
+                        doctorId: dId,
+                        appointmentDate:appDate
+                    };
+
+                    var serial;
+                    $.ajax({
+                        async: false,
+                        type: "POST",
+                        url: '@Url.Action("CountAppointMent", "Appointment")',
+                        contentType: 'application/json',
+                        data: JSON.stringify(json),
+
+                        success: function(data) {
+                            serial = data;
+                        }
+                    });
+                    if (parseInt(serial)>=30) {
+                        Swal.fire({
+                            title: 'Doctor not available in this date',
+                            animation: false,
+                            customClass: {
+                                popup: 'animated tada'
+                            }
+                        });
+                        $("#click").prop('disabled', true);
+
+                    }
+                    else {
+                        $("#click").prop('disabled', false);
+                    }
+                });
+
+            $('#AppointmentDate').on('change',
+                function () {
+                    var appDate = $('#AppointmentDate').val();
+                    //d.format("dd/mm/yyyy");
+                    var json = {
+                        appointmentDate:appDate
+                    };
+
+                    var da;
+                    $.ajax({
+                        async: false,
+                        type: "POST",
+                        url: '@Url.Action("CurrentDate", "Appointment")',
+                        contentType: 'application/json',
+                        data: JSON.stringify(json),
+
+                        success: function(data) {
+                            da = data;
+                        }
+                    });
+                    if (parseInt(da)==0) {
+                        Swal.fire({
+                            title: 'Select Date is Wrong!',
+                            animation: false,
+                            customClass: {
+                                popup: 'animated tada'
+                            }
+                        });
+                        $("#click").prop('disabled', true);
+
+                    }
+                    else {
+                        $("#click").prop('disabled', false);
+                    }
+                });
+        });
+    </script>
+}
+<divs>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="p-4 rounded border form-design animated bounceInUp">
+            <div class="form-horizontal">
+                <h4 class="text-center text-info">Take Appointment</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DoctorId, "DoctorId", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("DoctorId", null, "--select--", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DoctorId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AppointmentDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.AppointmentDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AppointmentDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.AppointmentNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.AppointmentNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AppointmentNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" id="click" value="Create" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</divs>
+
+        @*<script src="~/Content/sweetalert2/sweetalert2.min.js"></script>
+            <script>
+                $(function() {
+
+                });
+            </script>*@

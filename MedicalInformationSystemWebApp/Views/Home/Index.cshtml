@@ -1,0 +1,337 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <script src="https://kit.fontawesome.com/38501fe14e.js"></script>
+    <link href="~/Content/HomePage/Js&CSS/home.css" rel="stylesheet" />
+    <link href="~/Content/HomePage/Js&CSS/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+
+
+    <header>
+
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a href="@Url.Action("Index","Home")" class="navbar-brand">Mdi:)<span style="color: #00E8E8">al</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle Navigation">
+                <span class=" navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse"></div>
+
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav mr-auto">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item active">
+                            <a href="@Url.Action("Index", "Home")" class="nav-link">Home</a>
+                        </li>
+                        <li class=" nav-item">
+                            <a href="@Url.Action("Contact", "Home")" class="nav-link">ContactUs</a>
+                        </li>
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "Appointment")" class="nav-link">Appointment</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "Doctor")" class="nav-link">Doctor</a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Index", "Nurse")" class="nav-link">Nurse</a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Index", "Reception")" class="nav-link">Reception</a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Index", "Staff")" class="nav-link">Staff</a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Index", "Seat")" class="nav-link">Seat</a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Index", "Ward")" class="nav-link">Ward</a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Logout", "Account")" class="nav-link">Logout</a>
+                            </li>
+                            
+                        }
+                        else if (User.IsInRole("Doctor"))
+                        {
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Create", "PrescribeTest")" class="nav-link">Prescribe Test</a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Logout", "Account")" class="nav-link">Logout</a>
+                            </li>
+                        }
+                        else if (User.IsInRole("Nurse"))
+                        {
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Logout", "Account")" class="nav-link">Logout</a>
+                            </li>
+                        }
+                        else if (User.IsInRole("Reception"))
+                        {
+                            <li class=" nav-item">
+                                <a href="@Url.Action("Logout", "Account")" class="nav-link">Logout</a>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="nav-item active">
+                            <a href="@Url.Action("Index", "Home")" class="nav-link">Home</a>
+                        </li>
+                        <li class=" nav-item">
+                            <a href="@Url.Action("Contact", "Home")" class="nav-link">ContactUs</a>
+                        </li>
+                        <a href="@Url.Action("Login", "Account")" class="nav-link">Login</a>
+
+                    }
+
+                </ul>
+
+                @*<form class=" form-inline my-2 my-lg-0">
+                    <button class=" btn menu-right-btn border" type="submit">
+                        
+                    </button>
+                </form>*@
+            </div>
+
+        </nav>
+    </header>
+
+    <main>
+        <div class=" container-fluid p-0">
+            <div class=" site-content">
+                <div class=" d-flex justify-content-center">
+                    <div class=" d-flex flex-column">
+                        <h1 class=" site-title">Joya Memorial Medical Collage & Hospital</h1>
+                        <p class=" site-desc">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+
+                        <div class=" d-flex flex-row">
+                            
+                            <input type="button" onclick="window.location.href = '@Url.Action("Create","Appointment")'" value="Appointment" class=" btn site-btn1 px-4 py-3 mr-4 btn-dark">
+                            <input type="button" onclick="window.location.href = '@Url.Action("GetAllDoctorByDep","Doctor")'" value="Our sDoctor" class="btn site-btn2 px-4 py-3 mr-4 btn-light">
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section-1">
+            <div class="container text-center">
+                <h1 class="heading-1">Fantacic Featurs </h1>
+                <h1 class="heading-2">& Different Type of Template</h1>
+                <p class="para-1">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                </p>
+
+                <div class=" row justify-content-center text-center">
+                    <div class="col-md-4">
+                        <div class=" card">
+                            <img class=" card-img-top" src="~/Content/HomePage/asset/Cursol/doctor.jpg" alt="Image2">
+                            <div class=" card-body">
+                                <h4 class=" card-title">Responsiv</h4>
+                                <p class=" card-text">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class=" card">
+                            <img class=" card-img-top" src="~/Content/HomePage/asset/Cursol/sound.jpg" alt="Image2">
+                            <div class=" card-body">
+                                <h4 class=" card-title">Flexibility</h4>
+                                <p class=" card-text">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class=" card">
+                            <img class=" card-img-top" src="~/Content/HomePage/asset/Cursol/doctor1.png" alt="Image3">
+                            <div class=" card-body">
+                                <h4 class=" card-title">Medicine</h4>
+                                <p class=" card-text">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="section-2">
+            <div class="container-fluid">
+                <div class=" d-flex justify-content-end">
+                    <div class=" d-flex flex-column m-4">
+                        <h1 class="heading-1">Like & Share Your Love</h1>
+                        <p class="para">Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+                        <input type="button" value="Show" class="btn btn-danger">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="section-3">
+            <div class=" container">
+                <div class=" row">
+
+
+                    <div class=" col-md-4">
+                        <div class=" d-flex flex-row">
+                            <i class=" fas fa-history fa-3x m-2"></i>
+                            <div class=" d-flex flex-column">
+                                <h3 class="m-2">24/7 Support</h3>
+                                <p class="m-2">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-md-4">
+                        <div class=" d-flex flex-row">
+                            <i class="fas fa-seedling fa-3x m-2"></i>
+                            <div class=" d-flex flex-column">
+                                <h3 class="m-2">Marketing</h3>
+                                <p class="m-2">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-md-4">
+                        <div class=" d-flex flex-row">
+                            <i class="fas fa-rocket fa-3x m-2"></i>
+                            <div class=" d-flex flex-column">
+                                <h3 class="m-2">Speed</h3>
+                                <p class="m-2">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class=" col-md-4">
+                        <div class=" d-flex flex-row">
+                            <i class="fas fa-user-shield fa-3x m-2"></i>
+                            <div class=" d-flex flex-column">
+                                <h3 class="m-2">Authorized</h3>
+                                <p class="m-2">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-md-4">
+                        <div class=" d-flex flex-row">
+                            <i class="fas fa-search fa-3x m-2"></i>
+                            <div class=" d-flex flex-column">
+                                <h3 class="m-2">SEO</h3>
+                                <p class="m-2">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-md-4">
+                        <div class=" d-flex flex-row">
+                            <i class="fas fa-sliders-h fa-3x m-2"></i>
+                            <div class=" d-flex flex-column">
+                                <h3 class="m-2">Customized</h3>
+                                <p class="m-2">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-4 bg-dark">
+            <div class=" container">
+                <div class="row">
+                    <div class=" col-md-7">
+                        <img src="~/Content/HomePage/asset/Cursol/loveDoctor.jpg" alt="Image-7" width="490">
+                    </div>
+                    <div class=" col-md-5">
+                        <h1 class=" text-white">Did't know Where to start From</h1>
+                        <a href="#">Join Us</a>
+
+
+                        <p class="para-1">
+                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+
+    <footer>
+        <div class="section-5 text-center">
+            <h4 style="margin-top:5px;">Get Template Design From Team-71</h4>
+            <h4 class=" my-4">If you need any help</h4>
+
+            <div class=" form-inline justify-content-center">
+                <input type="text" name="Email" id="email" placeholder="Email" size="40" class=" form-control px-4 py-2">
+                <input type="button" value="Contact Us" class=" btn btn-danger px-4 py-2">
+
+            </div>
+
+            <div class="social" style="margin: 5%;">
+                <div class="d-flex flex-row justify-content-center">
+                    <i class="fab fa-facebook-f m-2"></i>
+                    <i class="fab fa-twitter m-2"></i>
+                    <i class="fab fa-instagram m-2"></i>
+                    <i class="fab fa-youtube m-2"></i>
+                </div>
+            </div>
+
+            <hr>
+
+            <h5 style="color: lightseagreen">Team-71 &copy;</h5>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Content/HomePage/Js&CSS/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,222 @@
+﻿@model MedicalInformationSystemWebApp.Models.CodeFirstModel.PatientTB
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@section Style
+{
+    <link href="~/Content/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/Content/CustomCss/inputStyle.css" rel="stylesheet" />
+
+}
+@section scripts
+{
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Content/sweetalert2/sweetalert2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#AdmitDate").datepicker();
+            $("#SeatId").prop('disabled', true);
+
+
+            $('#WardId').on('change',
+                function () {
+                    var wId = $('#WardId').val();
+                    $('#SeatId').empty();
+                    $("#SeatId").prop('disabled', false);
+
+                    $('#SeatId').append('<option value="">--Select--</option>');
+                    var json = {
+                        wardId: wId
+                    };
+
+                    var seat;
+                    $.ajax({
+                        async: false,
+                        type: "POST",
+                        url: '@Url.Action("IsSeatAvailable", "Patient")',
+                        contentType: 'application/json',
+                        data: JSON.stringify(json),
+
+                        success: function(data) {
+                            seat = data;
+                        }
+                    });
+                    if (parseInt(seat) <= 0) {
+                        Swal.fire({
+                            title: 'Seat Not Available',
+                            animation: false,
+                            customClass: {
+                                popup: 'animated tada'
+                            }
+                        });
+                        $("#SeatId").prop('disabled', true);
+                        $("#click").prop('disabled', true);
+
+                    } else {
+                        $("#SeatId").prop('disabled', false);
+                        $("#click").prop('disabled', false);
+                    }
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetSeatByWardId", "Patient")',
+                        contentType: 'application/json',
+                        data: JSON.stringify(json),
+
+                        success: function (data) {
+
+                            $.each(data,
+                                function (key, value) {
+
+                                    $('#SeatId').append('<option value="' +
+                                        value.Id +
+                                        '">' +
+                                        value.SeatNo +
+                                        '</option>');
+
+                                });
+                        }
+                    });
+
+
+                });
+
+            $('#SeatId').on('change',
+                function () {
+                    var sId = $('#SeatId').val();
+                    var json = {
+                        seatId: sId
+                    };
+
+                    var seat;
+                    $.ajax({
+                        async: false,
+                        type: "POST",
+                        url: '@Url.Action("IsSeatIsAvailable", "Patient")',
+                        contentType: 'application/json',
+                        data: JSON.stringify(json),
+
+                        success: function(data) {
+                            seat = data;
+                        }
+                    });
+                    if (parseInt(seat) <= 0) {
+                        Swal.fire({
+                            title: 'Seat is Booked',
+                            animation: false,
+                            customClass: {
+                                popup: 'animated tada'
+                            }
+                        });
+                        $("#click").prop('disabled', true);
+
+                    } else {
+                        $("#click").prop('disabled', false);
+                    }
+
+                });
+
+        });
+    </script>
+}
+
+<form method="post" class="form-design animated lightSpeedIn" enctype="multipart/form-data">
+
+    @Html.AntiForgeryToken()
+    <div class="p-4 rounded border">
+
+        <div class="form-horizontal">
+            <h4 class="text-center text-info">Patient Admite</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AdmitDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AdmitDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AdmitDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.WardId, "WardId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("WardId", null, "--Select--", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.WardId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SeatId, "SeatId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select id="SeatId" name="SeatId" class="form-control">
+                        <option value="">--Select--</option>
+                    </select>
+                    @*@Html.DropDownList("SeatId", null, htmlAttributes: new { @class = "form-control" })*@
+                    @Html.ValidationMessageFor(model => model.SeatId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" id="UploadImage" name="UploadImage" />
+                    @*@Html.EditorFor(model => model.ImagePath, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ImagePath, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Problem, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Problem, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Problem, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" id="click" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

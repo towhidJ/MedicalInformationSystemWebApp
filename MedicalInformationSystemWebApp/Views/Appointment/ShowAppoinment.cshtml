@@ -1,0 +1,62 @@
+﻿@model IEnumerable<MedicalInformationSystemWebApp.Models.CodeFirstModel.AppointmentTB>
+
+@{
+    ViewBag.Title = "ShowAppoinment";
+}
+
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Preview Appointment</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a href="@Url.Action("Create","Appointment")" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Another Appointment</a>
+    </div>
+</div>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DoctorTB.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppointmentDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppointmentNumber)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoctorTB.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppointmentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppointmentNumber)
+            </td>
+            <td>
+                <a class="btn btn-dark" href="@Url.Action("Print", "Appointment", new {id = item.AppointmentId})"><i class="fas fa-print">Print</i></a>
+            </td>
+        </tr>
+    }
+
+</table>

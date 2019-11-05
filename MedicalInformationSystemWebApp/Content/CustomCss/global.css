@@ -1,0 +1,38 @@
+﻿
+.bg {
+    /*background-image: url('../AdminLayout/image/background.jpg');*/
+    background-image: url('../AdminLayout/image/appointment.jpg');
+    /*background-image: url('../AdminLayout/image/dc.jpg');*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    /*width: auto;
+    height: 100vh;*/
+}
+
+body {
+    /*background-image: url('../AdminLayout/image/background.jpg');*/
+    background-image: url('../AdminLayout/image/appointment.jpg');
+    /*background-image: url('../AdminLayout/image/dc.jpg');*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    /*width: auto;
+    height: 100vh;*/
+}
+
+.form-conatiner {
+    border: 1px solid #fff;
+    padding: 50px 60px;
+    margin-top: 20vh;
+    -webkit-box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+    box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+}
+
+.form-design {
+    padding: 50px 60px;
+    margin-top: 20vh;
+    -webkit-box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+    box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+}
+

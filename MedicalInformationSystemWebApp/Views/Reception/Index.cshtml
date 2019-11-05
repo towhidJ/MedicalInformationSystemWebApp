@@ -1,0 +1,89 @@
+﻿@model IEnumerable<MedicalInformationSystemWebApp.Models.CodeFirstModel.ReceptionTB>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Reception List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a href="@Url.Action("Create","Reception")" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Add Reception</a>
+    </div>
+</div>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Dob)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Joined)
+        </th>
+        <th class="text-danger">Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img class="rounded-circle" src="~/Content/EmployeeImage/@item.ImagePath" width="50" height="50" />
+                @*@Html.DisplayFor(modelItem => item.ImagePath)*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Dob)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Joined)
+            </td>
+            <td style="width: 100px">
+                <div class="btn-group">
+                    <a class="btn btn-primary" href="@Url.Action("Edit","Reception",new {id = item.Id})"><i class="far fa-edit"></i></a>
+                    <a class="btn btn-success" href="@Url.Action("Details","Reception",new {id = item.Id})"><i class="fas fa-list-ul"></i></a>
+                    <a class="btn btn-danger" href="@Url.Action("Delete","Reception",new {id = item.Id})"><i class="fas fa-trash-alt"></i></a>
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>

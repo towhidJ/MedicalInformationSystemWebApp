@@ -1,0 +1,95 @@
+﻿@model MedicalInformationSystemWebApp.Models.CodeFirstModel.SeatTB
+
+@{
+    ViewBag.Title = "Create";
+}
+@section Style
+{
+    <link href="~/Content/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/Content/sweetalert2/Animation.css" rel="stylesheet" />
+
+}
+
+<h2>Add</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="p-4 rounded border">
+        <div class="form-horizontal">
+            <h4 class="text-center text-info">Seat</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.WardId, "WardId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("WardId", null, "--Select--", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.WardId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SeatNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SeatNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SeatNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input id="click" type="submit" value="Create" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@section scripts
+{
+    <script src="~/Content/sweetalert2/sweetalert2.min.js"></script>
+    <script>
+        $(function() {
+            $('#WardId').on('change',
+                function () {
+                    var wId = $('#WardId').val();
+                    var json = {
+                        wardId: wId
+                    };
+
+                    var seat;
+                    $.ajax({
+                            async: false,
+                            type: "POST",
+                            url: '@Url.Action("IsSeatAvailable", "Seat")',
+                            contentType: 'application/json',
+                            data: JSON.stringify(json),
+
+                            success: function(data) {
+                                seat = data;
+                            }
+                    });
+                    if (parseInt(seat)<=0) {
+                        Swal.fire({
+                            title: 'Room Is filp on seat',
+                            animation: false,
+                            customClass: {
+                                popup: 'animated tada'
+                            }
+                        });
+                        $("#SeatNo").prop('disabled', true);
+                        $("#click").prop('disabled', true);
+
+                    } else {
+                        $("#SeatNo").prop('disabled', false);
+                        $("#click").prop('disabled', false);
+                    }
+                });
+        });
+    </script>
+}

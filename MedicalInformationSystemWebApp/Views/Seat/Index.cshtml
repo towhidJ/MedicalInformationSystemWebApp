@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MedicalInformationSystemWebApp.Models.CodeFirstModel.SeatTB>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Seat List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a href="@Url.Action("Create","Seat")" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Add Seat</a>
+    </div>
+</div>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.WardTB.WardNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SeatNo)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WardTB.WardNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatNo)
+            </td>
+            <td style="width: 100px">
+                <div class="btn-group">
+                    <a class="btn btn-primary" href="@Url.Action("Edit", "Seat", new {id = item.Id})"><i class="far fa-edit"></i></a>
+                    <a class="btn btn-success" href="@Url.Action("Details", "Seat", new {id = item.Id})"><i class="fas fa-list-ul"></i></a>
+                    <a class="btn btn-danger" href="@Url.Action("Delete", "Seat", new {id = item.Id})"><i class="fas fa-trash-alt"></i></a>
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+

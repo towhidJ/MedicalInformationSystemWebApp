@@ -1,0 +1,49 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Lato|Pacifico|Righteous|Roboto+Condensed|Ubuntu&display=swap');
+
+body {
+    padding: 0%;
+    margin: 0%;
+    font-family: 'Lato';
+}
+
+.navbar-brand {
+    font-family: 'Pacifico';
+    font-size: 35px;
+    color: lightcoral !important;
+}
+
+.nav-link {
+    font-size: 16px;
+    margin: 15px;
+    color: black !important;
+    font-family: 'Roboto Condensed';
+}
+
+    .nav-link:hover {
+        color: aqua !important;
+    }
+
+.active .nav-link {
+    color: aqua !important;
+}
+
+.social i{
+    color: #EF5651;
+    font-size: 20px;
+}
+
+th {
+    font-family: 'Pacifico';
+}
+
+.menu-right-btn {
+    padding: 13px 46px;
+    margin-right: 4%;
+    background-color: transparent;
+    transition: all;
+}
+
+    .menu-right-btn:hover {
+        color: white;
+        background-color: #00E8E8;
+    }

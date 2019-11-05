@@ -1,0 +1,78 @@
+﻿@model MedicalInformationSystemWebApp.Models.CodeFirstModel.DoctorTB
+@{
+    ViewBag.Title = "GetAllDoctorByDep";
+}
+
+@section Style{
+    <style>
+        body {
+            counter-reset: Serial; 
+        }
+        table tr td {
+            text-align: left;
+        }
+        tr td:first-child:before
+        {
+            counter-increment: Serial;      /* Increment the Serial counter */
+            content:counter(Serial); /* Display the counter */
+        }
+           
+    </style>
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(model=>model.DepartmentId)
+        @Html.DropDownList("DepartmentId", null, "--Select--", new {@class = "form-control"})
+    </div>
+
+    <h4>Course Information</h4>
+    
+}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th rowspan="1">SL</th>
+        <th>Name</th>
+        <th>Visit Time</th>
+        <th>Visit Day</th>
+    </tr>
+    </thead>
+    <tbody id="courseInfo"></tbody>
+
+</table>
+@section scripts
+{
+    <script>
+        $(function() {
+            $('#DepartmentId').on('change',
+                function () {
+                    var depId = $('#DepartmentId').val();
+                    var json = {
+                        departmentId: depId
+                    };
+                    $("#courseInfo").empty();
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetAllDoctorByDepartmentId", "Doctor")',
+                        contentType: 'application/json',
+                        data: JSON.stringify(json),
+
+                        success: function (data) {
+
+                            $.each(data,
+                                function (key, value) {
+
+                                    $("#courseInfo").append('<tr><td></td><td>' + value.Name + '</td><td>' + value.Start +'-'+value.End +'</td><td>' + value.VisitDay + '</td></tr>');
+
+                                });
+                        }
+                    });
+                });
+        });
+    </script>
+}
+
+

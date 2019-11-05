@@ -1,0 +1,89 @@
+﻿@model MedicalInformationSystemWebApp.Models.CodeFirstModel.PatientTB
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="p-4 rounded border text-center form-design animated lightSpeedIn">
+    <h4 class="text-center text-info">Details Patient info</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SeatTB.SeatNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SeatTB.SeatNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WardTB.WardNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WardTB.WardNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdmitDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdmitDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+
+        <dd>
+            <img class="rounded-circle" src="~/Content/EmployeeImage/@Model.ImagePath" width="50" height="50" />
+            @*@Html.DisplayFor(model => model.ImagePath)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Problem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Problem)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

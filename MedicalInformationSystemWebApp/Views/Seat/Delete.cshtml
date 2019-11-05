@@ -1,0 +1,48 @@
+﻿@model MedicalInformationSystemWebApp.Models.CodeFirstModel.SeatTB
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Delete</h2>
+    </div>
+</div>
+<br />
+
+<h3 class="text-danger">Are you sure you want to delete this?</h3>
+<div>
+    <h4 class="text-center text-info">Seat Recoard</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WardTB.WardNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WardTB.WardNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SeatNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SeatNo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

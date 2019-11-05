@@ -1,0 +1,19 @@
+﻿.container {
+    float: left;
+    align-items: center;
+    margin-left: 5%;
+    width: 90%;
+}
+
+.advertisement {
+    float: right;
+    width: 60%;
+    padding-left: 20%;
+}
+
+    .advertisement .inner {
+        display: flex;
+        align-items: center;
+        background: whitesmoke;
+        height: 100%;
+    }
