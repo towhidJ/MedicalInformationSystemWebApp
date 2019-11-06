@@ -226,7 +226,7 @@ namespace MedicalInformationSystemWebApp.Controllers
 
         public JsonResult IsSeatIsAvailable(int seatId)
         {
-            int isAvail = db.PatientTBs.Where(c => c.SeatId == seatId).Select(c => c.SeatId).Count();
+            int isAvail = db.PatientTBs.Where(c => c.SeatId == seatId && c.Action==1).Select(c => c.SeatId).Count();
             if (isAvail>0)
             {
                 return Json(0);
