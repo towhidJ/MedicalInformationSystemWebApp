@@ -16,6 +16,7 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         public int? RefferDoctorId { get; set; }
 
         [Required]
+        [DataType(DataType.MultilineText)]
         [StringLength(200)]
         public string TestName { get; set; }
 

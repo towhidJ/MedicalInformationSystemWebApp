@@ -931,6 +931,7 @@
     <Content Include="Views\Seat\Index.cshtml" />
     <Content Include="Views\Appointment\ShowAppoinment.cshtml" />
     <Content Include="Views\Appointment\AppointmentSlip.cshtml" />
+    <Content Include="Views\PrescribeTest\TestPrescribtation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -7,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MedicalInformationSystemWebApp.Models.CodeFirstModel;
+using Rotativa;
 
 namespace MedicalInformationSystemWebApp.Controllers
 {
@@ -131,6 +133,38 @@ namespace MedicalInformationSystemWebApp.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        public ActionResult TestPrescribtation(int id)
+        {
+            var pTest = db.PrescribeTestTBs.Where(c => c.Id == id).Select(c => c);
+            List<string> TestName = new List<string>();
+            foreach (var prescribeTest in pTest)
+            {
+                var tN = prescribeTest.TestName.Split(',');
+                for (int i = 0; i < tN.Length; i++)
+                {
+                    TestName.Add(tN[i].ToString() + "\n");
+                }
+                ViewBag.Name = prescribeTest.PatientTB.Name;
+                ViewBag.Date = DateTime.Now.ToString("yyyy-M-d dddd");
+                ViewBag.Age = prescribeTest.PatientTB.Age;
+                ViewBag.Doctor = prescribeTest.DoctorTB.Name;
+                ViewBag.DoctorTitle = prescribeTest.DoctorTB.DesignationTB.DesignationName;
+                ViewBag.DoctorS = prescribeTest.DoctorTB.SpealizationTB.Type;
+                ViewBag.Day = prescribeTest.DoctorTB.VisitDay;
+                ViewBag.Time = prescribeTest.DoctorTB.VisitingTimeStart + "-" + prescribeTest.DoctorTB.VisitingTimeEnd;
+                ViewBag.Sex = prescribeTest.PatientTB.Gender;
+            }
+
+            ViewBag.TestName = TestName.ToList();
+            return View(pTest);
+        }
+
+        public ActionResult Print(int id)
+        {
+            return new ActionAsPdf("TestPrescribtation", new { id = id });
         }
     }
 }
