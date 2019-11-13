@@ -15,10 +15,13 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
 
         public int? RefferDoctorId { get; set; }
 
-        [Required]
         [DataType(DataType.MultilineText)]
         [StringLength(200)]
         public string TestName { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [StringLength(300)]
+        public string Midkit { get; set; }
 
         public virtual DoctorTB DoctorTB { get; set; }
 

@@ -234,6 +234,9 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
             modelBuilder.Entity<PrescribeTestTB>()
                 .Property(e => e.TestName)
                 .IsUnicode(false);
+            modelBuilder.Entity<PrescribeTestTB>()
+                .Property(e => e.Midkit)
+                .IsUnicode(false);
 
             modelBuilder.Entity<ReceptionTB>()
                 .Property(e => e.Name)

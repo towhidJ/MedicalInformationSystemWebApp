@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MedicalInformationSystemWebApp.Models;
 using MedicalInformationSystemWebApp.Models.CodeFirstModel;
 using MedicalInformationSystemWebApp.Models.ModelView;
 
@@ -15,6 +16,7 @@ namespace MedicalInformationSystemWebApp.Controllers
     public class DoctorController : Controller
     {
         private MedicalInfoSys db = new MedicalInfoSys();
+        PasswordHelper passwordHelper = new PasswordHelper();
 
         // GET: Doctor
         public ActionResult Index()
@@ -81,6 +83,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                 }
                 //else
                 //    return View(doctorTB);
+                doctorTB.Password = passwordHelper.Encode(doctorTB.Password);
                 db.DoctorTBs.Add(doctorTB);
                 db.SaveChanges();
                 return RedirectToAction("Index");
