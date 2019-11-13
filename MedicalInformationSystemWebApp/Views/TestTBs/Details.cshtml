@@ -1,0 +1,51 @@
+﻿@model MedicalInformationSystemWebApp.Models.CodeFirstModel.TestTB
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TestTB</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PrescribeTestTB.TestName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrescribeTestTB.TestName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveryDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveryDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestFee)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

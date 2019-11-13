@@ -27,6 +27,8 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
 
         public double TestFee { get; set; }
 
+        public virtual PrescribeTestTB PrescribeTestTB { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestRepaortTB> TestRepaortTBs { get; set; }
     }

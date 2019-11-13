@@ -9,6 +9,12 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
     [Table("PrescribeTestTB")]
     public partial class PrescribeTestTB
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PrescribeTestTB()
+        {
+            TestTBs = new HashSet<TestTB>();
+        }
+
         public int Id { get; set; }
 
         public int PatientId { get; set; }
@@ -26,5 +32,8 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         public virtual DoctorTB DoctorTB { get; set; }
 
         public virtual PatientTB PatientTB { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TestTB> TestTBs { get; set; }
     }
 }

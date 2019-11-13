@@ -238,6 +238,12 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
                 .Property(e => e.Midkit)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<PrescribeTestTB>()
+                .HasMany(e => e.TestTBs)
+                .WithRequired(e => e.PrescribeTestTB)
+                .HasForeignKey(e => e.PrescribeTestId)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<ReceptionTB>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
