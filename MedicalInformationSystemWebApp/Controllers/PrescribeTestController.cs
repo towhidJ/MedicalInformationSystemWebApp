@@ -51,7 +51,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,PatientId,RefferDoctorId,TestName")] PrescribeTestTB prescribeTestTB)
+        public ActionResult Create([Bind(Include = "Id,PatientId,RefferDoctorId,TestName,Midkit")] PrescribeTestTB prescribeTestTB)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,PatientId,RefferDoctorId,TestName")] PrescribeTestTB prescribeTestTB)
+        public ActionResult Edit([Bind(Include = "Id,PatientId,RefferDoctorId,TestName,Midkit")] PrescribeTestTB prescribeTestTB)
         {
             if (ModelState.IsValid)
             {
