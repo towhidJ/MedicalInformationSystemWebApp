@@ -42,6 +42,8 @@
         <br/>
         <br/>
         <br/>
+        <br/>
+        <br/>
         <h6 align="center" class=" mx-5 bg-secondary" style="color: white;">Prescription</h6>
         <div class="mx-5">
 
@@ -81,20 +83,41 @@
         <hr />
         <div class="  pt-2t">
             <p><b><u>Test Name</u></b></p>
-            <b><span class=" d-inline-block">
-                
-                @foreach (string Test in @ViewBag.TestName)
-                {
-                    @Test;<span>,</span> <br/>
-                }
-            </span></b><br />
+            <b>
+                <span class=" d-inline-block">
+
+                    @foreach (string Test in @ViewBag.TestName)
+                    {
+                        @Test;<span>,</span> <br />
+                    }
+                </span>
+            </b><br />
         </div>
 
-        
+
         <br>
         <br>
         <hr />
     </div>
+
+<div class=" container-fluid mx-5 px-5 text-center">
+    <hr />
+    <div class="  pt-2t">
+        <p><b><u>Midkit</u></b></p>
+        <b><span class=" d-inline-block">
+                
+            @foreach (string mid in @ViewBag.Midkit)
+            {
+                @mid;<span>,</span> <br/>
+            }
+        </span></b><br />
+    </div>
+
+        
+    <br>
+    <br>
+    <hr />
+</div>
 
 </body>
 </html>

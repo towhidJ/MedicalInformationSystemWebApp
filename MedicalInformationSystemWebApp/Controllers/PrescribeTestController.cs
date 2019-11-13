@@ -140,13 +140,24 @@ namespace MedicalInformationSystemWebApp.Controllers
         {
             var pTest = db.PrescribeTestTBs.Where(c => c.Id == id).Select(c => c);
             List<string> TestName = new List<string>();
+            List<string> Midkit = new List<string>();
             foreach (var prescribeTest in pTest)
             {
+                if (prescribeTest.Midkit!=null)
+                {
+                    var mk = prescribeTest.Midkit.Split(',');
+                    for (int j = 0; j < mk.Length; j++)
+                    {
+                        Midkit.Add(mk[j].ToString() + "\n");
+                    }
+                }
                 var tN = prescribeTest.TestName.Split(',');
+                
                 for (int i = 0; i < tN.Length; i++)
                 {
                     TestName.Add(tN[i].ToString() + "\n");
                 }
+                
                 ViewBag.Name = prescribeTest.PatientTB.Name;
                 ViewBag.Date = DateTime.Now.ToString("yyyy-M-d dddd");
                 ViewBag.Age = prescribeTest.PatientTB.Age;
@@ -159,6 +170,7 @@ namespace MedicalInformationSystemWebApp.Controllers
             }
 
             ViewBag.TestName = TestName.ToList();
+            ViewBag.Midkit = Midkit.ToList();
             return View(pTest);
         }
 
