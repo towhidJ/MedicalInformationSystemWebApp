@@ -16,6 +16,8 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         {
             PrescribeTestTBs = new HashSet<PrescribeTestTB>();
             AppointmentTBs = new HashSet<AppointmentTB>();
+            PatientTBs = new HashSet<PatientTB>();   //new add
+
         }
 
         [Key]
@@ -92,5 +94,8 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppointmentTB> AppointmentTBs { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PatientTB> PatientTBs { get; set; }
     }
 }

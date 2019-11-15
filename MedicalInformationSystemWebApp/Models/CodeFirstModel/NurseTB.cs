@@ -11,6 +11,14 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
     [Table("NurseTB")]
     public partial class NurseTB
     {
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public NurseTB()
+        {
+            PatientTBs = new HashSet<PatientTB>();  // new Add
+
+        }
+
         [Key]
         public int NurseId { get; set; }
 
@@ -57,5 +65,8 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         public string Gender { get; set; }
 
         public virtual RoleTB RoleTB { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PatientTB> PatientTBs { get; set; }
     }
 }

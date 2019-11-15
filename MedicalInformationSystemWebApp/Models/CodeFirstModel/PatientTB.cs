@@ -27,6 +27,10 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
 
         public int Action { get; set; }
 
+        [Required]
+        public int DoctorId { get; set; }
+        [Required]
+        public int NurseId { get; set; }
 
         [StringLength(50)]
         public string Address { get; set; }
@@ -61,6 +65,10 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         public virtual SeatTB SeatTB { get; set; }
 
         public virtual WardTB WardTB { get; set; }
+
+        public virtual DoctorTB DoctorTB { get; set; }  //new add
+
+        public virtual NurseTB NurseTB { get; set; }  //new add
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PrescribeTestTB> PrescribeTestTBs { get; set; }

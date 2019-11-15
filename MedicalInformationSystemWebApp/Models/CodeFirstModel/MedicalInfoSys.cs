@@ -153,6 +153,12 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
                 .WithRequired(e => e.DoctorTB)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<DoctorTB>()
+                .HasMany(e => e.PatientTBs)
+                .WithRequired(e => e.DoctorTB)
+                .HasForeignKey(e => e.DoctorId)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<NurseTB>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
@@ -184,6 +190,12 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
             modelBuilder.Entity<NurseTB>()
                 .Property(e => e.Gender)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<NurseTB>()
+                .HasMany(e => e.PatientTBs)
+                .WithRequired(e => e.NurseTB)
+                .HasForeignKey(e => e.NurseId)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<PatientReport>()
                 .Property(e => e.PrescribeMedecine)

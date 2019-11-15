@@ -17,7 +17,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         // GET: Patient
         public ActionResult Index()
         {
-            var patientTBs = db.PatientTBs.Include(p => p.SeatTB).Include(p => p.WardTB);
+            var patientTBs = db.PatientTBs.Include(p => p.SeatTB).Include(p => p.WardTB).Include(p=>p.DoctorTB).Include(p=>p.NurseTB);
             return View(patientTBs.ToList());
         }
 
@@ -41,6 +41,8 @@ namespace MedicalInformationSystemWebApp.Controllers
         {
             ViewBag.SeatId = new SelectList(db.SeatTBs, "Id", "SeatNo");
             ViewBag.WardId = new SelectList(db.WardTBs, "Id", "WardNo");
+            ViewBag.DoctorId = new SelectList(db.DoctorTBs, "DoctorId", "Name");
+            ViewBag.NurseId = new SelectList(db.NurseTBs, "NurseId", "Name");
             return View();
         }
 
@@ -49,7 +51,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Age,Gender,Address,AdmitDate,WardId,SeatId,ImagePath,Problem")] PatientTB patientTB, HttpPostedFileBase UploadImage)
+        public ActionResult Create([Bind(Include = "Id,Name,Age,Gender,Address,AdmitDate,WardId,SeatId,ImagePath,DoctorId,NurseId,Problem")] PatientTB patientTB, HttpPostedFileBase UploadImage)
         {
             if (ModelState.IsValid)
             {
@@ -92,6 +94,9 @@ namespace MedicalInformationSystemWebApp.Controllers
             ViewBag.SeatId = new SelectList(db.SeatTBs, "Id", "SeatNo", patientTB.SeatId);
             var ward = db.WardTBs.Select(c => new {c.Id, c.WardNo});
             ViewBag.WardId = new SelectList(ward, "Id", "WardNo", patientTB.WardId);
+
+            ViewBag.DoctorId = new SelectList(db.DoctorTBs, "DoctorId", "Name");
+            ViewBag.NurseId = new SelectList(db.NurseTBs, "NurseId", "Name");
             return View(patientTB);
         }
 
