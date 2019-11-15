@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MedicalInformationSystemWebApp.Models.CodeFirstModel;
+using Rotativa;
 
 namespace MedicalInformationSystemWebApp.Controllers
 {
@@ -56,7 +57,8 @@ namespace MedicalInformationSystemWebApp.Controllers
             {
                 db.TestTBs.Add(testTB);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                int id = testTB.Id;
+                return RedirectToAction("PreviewTestSubmite", "TestTBs", new { id = id });
             }
 
             //var patient = db.PrescribeTestTBs.Select(c => new {c.PatientId, c.PatientTB.Name});
@@ -139,5 +141,41 @@ namespace MedicalInformationSystemWebApp.Controllers
                 .Select(c => new {name = c.PatientTB.Name, testName = c.TestName.ToString()});
             return Json(TestInfo);
         }
+
+        //Test Recipe
+
+        public ActionResult PreviewTestSubmite(int id)
+        {
+            var pTest = db.TestTBs.Where(c => c.Id == id).Select(c => c);
+            return View(pTest);
+        }
+
+        public ActionResult TestRecipt(int id)
+        {
+            var pTest = db.TestTBs.Where(c => c.Id == id).Select(c => c);
+            List<string> TestName = new List<string>();
+            foreach (var pt in pTest)
+            {
+                var tN = pt.PrescribeTestTB.TestName.Split(',');
+
+                for (int i = 0; i < tN.Length; i++)
+                {
+                    TestName.Add(tN[i].ToString() + "\n");
+                }
+                ViewBag.Name = pt.PrescribeTestTB.PatientTB.Name;
+                ViewBag.TD = pt.TestDate.ToString("yyyy-M-d dddd");
+                ViewBag.DD = pt.DeliveryDate.ToString("yyyy-M-d dddd");
+                ViewBag.TestFee = pt.TestFee;
+                ViewBag.Sex = pt.PrescribeTestTB.PatientTB.Gender;
+                ViewBag.TestName = TestName;
+            }
+            return View(pTest);
+        }
+
+        public ActionResult Print(int id)
+        {
+            return new ActionAsPdf("AppointmentSlip", new { id = id });
+        }
+
     }
 }

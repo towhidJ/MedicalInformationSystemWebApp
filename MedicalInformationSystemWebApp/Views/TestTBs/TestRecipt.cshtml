@@ -1,0 +1,90 @@
+﻿@{
+    Layout = null;
+    int i = 0;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/CustomCss/AppointmentCSS.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container-fluid m-5 px-5">
+        <a href="#" class="navbar-brand">Jo<span style="color: #00E8E8">ya</span>M:<span style="color: #00E8E8">)H</span></a>
+        <h1 align="center" class="f site-title">Joya Memorial Medical Collage & Hospital</h1>
+        <h5 align="center" class="f" style="background: lightyellow;color:indigo">Moijjartak circle,Karnafully,Chattogram</h5>
+        <hr />
+        <br />
+   
+        <h6 align="center" class=" mx-5 bg-secondary" style="color: white;">Test Report Delivery Recipet</h6>
+        <div class="mx-5">
+
+            <aside class="float-left">
+                <table>
+                    <tr>
+                        <th>Name: &nbsp; </th>
+                        <td>@ViewBag.Name</td>
+                    </tr>
+                    <tr>
+                        <th>Sex: &nbsp; </th>
+                        <td>@ViewBag.Sex</td>
+                    </tr>
+                </table>
+            </aside>
+
+
+            <aside class=" float-right">
+                <table>
+                    <tr>
+                        <th>TestDate:</th>
+                        <td>@ViewBag.TD</td>
+                    </tr>
+                    <tr>
+                        <th>Delivery Date:</th>
+                        <td>@ViewBag.DD</td>
+                    </tr>
+                </table>
+            </aside>
+        </div>
+
+
+    </div>
+    <br />
+
+<div class=" container-fluid mx-5 px-5 text-center">
+    <hr />
+    <div class="  pt-2t">
+        <p><b><u>Test Name</u></b></p>
+        <b>
+            <span class=" d-inline-block">
+
+                @foreach (string Test in @ViewBag.TestName)
+                {
+                    @Test;<span>,</span> <br />
+                }
+            </span>
+        </b><br />
+    </div>
+
+
+    <br>
+    <br>
+    <hr />
+    <h4><u>Payment Details</u></h4>
+    <br>
+    <h6 class=" d-inline-block">Test Fee: </h6>
+    <span class=" d-inline-block">@ViewBag.TestFee</span>
+    <br>
+    <br>
+</div>
+
+
+
+</body>
+</html>
