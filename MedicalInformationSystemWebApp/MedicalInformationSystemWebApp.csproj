@@ -141,6 +141,7 @@
     <Compile Include="Controllers\ReceptionController.cs" />
     <Compile Include="Controllers\SeatController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
+    <Compile Include="Controllers\TestRepaortController.cs" />
     <Compile Include="Controllers\TestTBsController.cs" />
     <Compile Include="Controllers\WardController.cs" />
     <Compile Include="Global.asax.cs">
@@ -938,6 +939,11 @@
     <Content Include="Views\TestTBs\Details.cshtml" />
     <Content Include="Views\TestTBs\Edit.cshtml" />
     <Content Include="Views\TestTBs\Index.cshtml" />
+    <Content Include="Views\TestRepaort\Create.cshtml" />
+    <Content Include="Views\TestRepaort\Delete.cshtml" />
+    <Content Include="Views\TestRepaort\Details.cshtml" />
+    <Content Include="Views\TestRepaort\Edit.cshtml" />
+    <Content Include="Views\TestRepaort\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

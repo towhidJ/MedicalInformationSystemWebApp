@@ -17,9 +17,11 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
 
         public int Id { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:d}")]
         [Column(TypeName = "date")]
         public DateTime TestDate { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:d}")]
         [Column(TypeName = "date")]
         public DateTime DeliveryDate { get; set; }
 

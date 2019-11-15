@@ -11,6 +11,7 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
     {
         public int Id { get; set; }
 
+        [DataType(DataType.MultilineText)]
         [StringLength(50)]
         public string Report { get; set; }
 
