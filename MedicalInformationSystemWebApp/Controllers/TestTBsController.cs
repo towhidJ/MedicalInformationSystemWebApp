@@ -135,7 +135,7 @@ namespace MedicalInformationSystemWebApp.Controllers
 
         public JsonResult GetTestInfoByPtId(int prescribeTestId)
         {
-            var TestInfo = db.PrescribeTestTBs.Where(c => c.Id == prescribeTestId)
+            var TestInfo = db.PrescribeTestTBs.Where(c => c.Id == prescribeTestId  && c.TestName!=null)
                 .Select(c => new {name = c.PatientTB.Name, testName = c.TestName.ToString()});
             return Json(TestInfo);
         }
