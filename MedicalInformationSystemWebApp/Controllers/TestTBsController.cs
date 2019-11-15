@@ -174,8 +174,24 @@ namespace MedicalInformationSystemWebApp.Controllers
 
         public ActionResult Print(int id)
         {
-            return new ActionAsPdf("AppointmentSlip", new { id = id });
+            return new ActionAsPdf("TestRecipt", new { id = id });
         }
 
+
+        //Compare Test date to deliveryDate
+        public JsonResult CompareDate(DateTime devDate,DateTime tDate)
+        {
+            string DeliveryD = devDate.ToString("MM/dd/yyyy");
+            string testd = tDate.ToString("MM/dd/yyyy");
+            DateTime to, from;
+
+            to = DateTime.Parse(DeliveryD);
+            from = DateTime.Parse(testd);
+            if (to >= from)
+            {
+                return Json(1);
+            }
+            return Json(0);
+        }
     }
 }

@@ -71,7 +71,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" id="click" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -91,6 +91,10 @@
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
     <script src="~/Scripts/mdtimepicker.min.js"></script>
+    <script src="~/Content/sweetalert2/sweetalert2.min.js"></script>
+    <link href="~/Content/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/Content/sweetalert2/Animation.css" rel="stylesheet" />
+
     <script>
         $(function () {
 
@@ -128,6 +132,80 @@
                                 });
                         }
                     });
+                });
+
+            $('#TestDate').on('change',
+                function () {
+                    var tD = $('#TestDate').val();
+                    //d.format("dd/mm/yyyy");
+                    var json = {
+                        appointmentDate:tD
+                    };
+
+                    var da;
+                    $.ajax({
+                        async: false,
+                        type: "POST",
+                        url: '@Url.Action("CurrentDate", "Appointment")',  //Json file ta appointment controlle aga 1 bar create kora cilotai oita call korci
+                        contentType: 'application/json',
+                        data: JSON.stringify(json),
+
+                        success: function(data) {
+                            da = data;
+                        }
+                    });
+                    if (parseInt(da)==0) {
+                        Swal.fire({
+                            title: 'Select Date is Wrong!',
+                            animation: false,
+                            customClass: {
+                                popup: 'animated tada'
+                            }
+                        });
+                        $("#click").prop('disabled', true);
+
+                    }
+                    else {
+                        $("#click").prop('disabled', false);
+                    }
+                });
+
+            $('#DeliveryDate').on('change',
+                function () {
+                    var dD = $('#DeliveryDate').val();
+                    var tD = $('#TestDate').val();
+                    //d.format("dd/mm/yyyy");
+                    var json = {
+                        devDate: dD,
+                        tDate: tD
+                    };
+
+                    var da;
+                    $.ajax({
+                        async: false,
+                        type: "POST",
+                        url: '@Url.Action("CompareDate", "TestTBs")',  //Json file ta appointment controlle aga 1 bar create kora cilotai oita call korci
+                        contentType: 'application/json',
+                        data: JSON.stringify(json),
+
+                        success: function(data) {
+                            da = data;
+                        }
+                    });
+                    if (parseInt(da)==0) {
+                        Swal.fire({
+                            title: 'Select Date is not Possible!',
+                            animation: false,
+                            customClass: {
+                                popup: 'animated tada'
+                            }
+                        });
+                        $("#click").prop('disabled', true);
+
+                    }
+                    else {
+                        $("#click").prop('disabled', false);
+                    }
                 });
         });
 
