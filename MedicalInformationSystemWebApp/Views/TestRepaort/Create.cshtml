@@ -12,55 +12,56 @@
 
 }
 
-@using (Html.BeginForm())
-{
+<form method="post" class="form-design animated lightSpeedIn" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
+    <div class="p-4 rounded border">
 
-    <div class="form-horizontal">
-        <h4>TestRepaortTB</h4>
-        <hr />
+        <div class="form-horizontal">
+            <h4 class="text-center text-info">Test Repaort</h4>
+            <hr />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TestId, "Patient Test Id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("TestId", null, "--Select--",htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TestId, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.TestId, "Patient Test Id", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("TestId", null, "--Select--", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.TestId, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2" for="testName">Test Name</label>
-            <div class="col-md-10">
-                <input name="testName" id="testName" class="form-control disabled" />
+            <div class="form-group">
+                <label class="control-label col-md-2" for="testName">Test Name</label>
+                <div class="col-md-10">
+                    <input name="testName" id="testName" class="form-control disabled" />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2" for="patient">Patient Name</label>
-            <div class="col-md-10">
-                <input name="patient" id="patient" class="form-control disabled" />
+            <div class="form-group">
+                <label class="control-label col-md-2" for="patient">Patient Name</label>
+                <div class="col-md-10">
+                    <input name="patient" id="patient" class="form-control disabled" />
+                </div>
             </div>
-        </div>
 
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Report, "Result", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Report, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Report, "", new { @class = "text-danger" })
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Report, "Result", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Report, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Report, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
 
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-success" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-success" />
+                </div>
             </div>
         </div>
     </div>
-}
+</form>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
