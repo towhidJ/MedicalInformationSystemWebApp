@@ -4,13 +4,19 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Test List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a href="@Url.Action("Create","TestTBs")" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Add Test</a>
+    </div>
+</div>
+<br />
+<table class="table form-design animated lightSpeedIn " id="testTable">
+    <thead>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.PrescribeTestTB.PatientTB.Name)
@@ -26,27 +32,46 @@
         </th>
         <th>Action</th>
     </tr>
+    </thead>
+    <tbody>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PrescribeTestTB.PatientTB.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TestDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeliveryDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TestFee)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrescribeTestTB.PatientTB.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestFee)
+            </td>
+            <td style="width: 100px">
+                <div class="btn-group">
+                    <a class="btn btn-primary" href="@Url.Action("Edit", "TestTBs", new {id = item.Id})"><i class="far fa-edit"></i></a>
+                    <a class="btn btn-success" href="@Url.Action("Details", "TestTBs", new {id = item.Id})"><i class="fas fa-list-ul"></i></a>
+                    <a class="btn btn-danger" href="@Url.Action("Delete", "TestTBs", new {id = item.Id})"><i class="fas fa-trash-alt"></i></a>
+                    <a class="btn btn-dark" href="@Url.Action("Print", "TestTBs", new {id = item.Id})"><i class="fas fa-print">Print</i></a>
+                </div>
+            </td>
+        </tr>
+    }
+    </tbody>
+    <tfoot></tfoot>
 
 </table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#testTable").DataTable();
+        });
+    </script>
+
+}

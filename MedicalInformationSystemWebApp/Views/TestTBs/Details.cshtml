@@ -5,47 +5,45 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+    <div class="p-4 border rounded form-design animated lightSpeedIn text-center">
+        <h4 class="text-center text-info">Test</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PrescribeTestTB.TestName)
+            </dt>
 
-<div>
-    <h4>TestTB</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.PrescribeTestTB.TestName)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PrescribeTestTB.TestName)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.PrescribeTestTB.TestName)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TestDate)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TestDate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TestDate)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.TestDate)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DeliveryDate)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DeliveryDate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DeliveryDate)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DeliveryDate)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TestFee)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TestFee)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TestFee)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.TestFee)
-        </dd>
-
-    </dl>
-</div>
-<p>
+        </dl>
+    </div>
+<p class="text-center text-info">
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

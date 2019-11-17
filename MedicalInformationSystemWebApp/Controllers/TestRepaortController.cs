@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MedicalInformationSystemWebApp.Models.CodeFirstModel;
+using Rotativa;
 
 namespace MedicalInformationSystemWebApp.Controllers
 {
@@ -138,6 +139,36 @@ namespace MedicalInformationSystemWebApp.Controllers
 
                 });
             return Json(TestInfo);
+        }
+
+        public ActionResult TestResult(int id)
+        {
+            var testRepaort = db.TestRepaortTBs.Where(c => c.Id == id).Select(c => c);
+            List<string> TestReport = new List<string>();
+            foreach (var TR in testRepaort)
+            {
+                ViewBag.Name = TR.TestTB.PrescribeTestTB.PatientTB.Name;
+                ViewBag.TD = TR.TestTB.TestDate.ToString("yyyy-M-d dddd");
+                ViewBag.DD = TR.TestTB.DeliveryDate.ToString("yyyy-M-d dddd");
+                ViewBag.Age = TR.TestTB.PrescribeTestTB.PatientTB.Age;
+                ViewBag.Sex = TR.TestTB.PrescribeTestTB.PatientTB.Gender;
+
+                var tN = TR.Report.Split(',');
+
+                for (int i = 0; i < tN.Length; i++)
+                {
+                    TestReport.Add(tN[i].ToString() + "\n");
+                }
+
+            }
+
+            ViewBag.Result = TestReport;
+            return View(testRepaort);
+        }
+
+        public ActionResult Print(int id)
+        {
+            return new ActionAsPdf("AppointmentSlip", new { id = id });
         }
     }
 }

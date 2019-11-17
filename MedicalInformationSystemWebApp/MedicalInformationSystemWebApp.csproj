@@ -946,6 +946,7 @@
     <Content Include="Views\TestRepaort\Index.cshtml" />
     <Content Include="Views\TestTBs\PreviewTestSubmite.cshtml" />
     <Content Include="Views\TestTBs\TestRecipt.cshtml" />
+    <Content Include="Views\TestRepaort\TestResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
