@@ -42,7 +42,8 @@ namespace MedicalInformationSystemWebApp.Controllers
         {
             //var patient = db.PrescribeTestTBs.Select(c => new { c.PatientId, c.PatientTB.Name });
             //ViewBag.PrescribeTestId = new SelectList(patient, "PatientId", "Name");
-            ViewBag.PrescribeTestId = new SelectList(db.PrescribeTestTBs, "Id", "Id");
+            var ptId = db.PrescribeTestTBs.Where(c => c.TestName != null).Select(c => c);
+            ViewBag.PrescribeTestId = new SelectList(ptId, "Id", "Id");
             return View();
         }
 
