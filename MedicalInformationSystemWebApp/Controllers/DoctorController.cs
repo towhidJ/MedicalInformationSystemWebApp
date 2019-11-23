@@ -15,7 +15,7 @@ namespace MedicalInformationSystemWebApp.Controllers
 {
     public class DoctorController : Controller
     {
-        private string name;
+        private string na;
         private MedicalInfoSys db = new MedicalInfoSys();
         PasswordHelper passwordHelper = new PasswordHelper();
 
@@ -113,7 +113,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                 return HttpNotFound();
             }
 
-            name = db.DoctorTBs.Find(id).Name;
+            
             ViewBag.DepartmentId = new SelectList(db.DepartmentTBs, "Id", "DepartmentName", doctorTB.DepartmentId);
             ViewBag.DesignationId = new SelectList(db.DesignationTBs, "Id", "DesignationName", doctorTB.DesignationId);
             ViewBag.RoleId = new SelectList(db.RoleTBs, "Id", "Role", doctorTB.RoleId);
@@ -196,6 +196,11 @@ namespace MedicalInformationSystemWebApp.Controllers
                     doctorTB.VisitDay = vDay;
                 }
 
+
+                if (doctorTB.Name.Length < 15)
+                {
+                    doctorTB.Name = passwordHelper.AesEncryption(doctorTB.Name);
+                }
                 db.Entry(doctorTB).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
