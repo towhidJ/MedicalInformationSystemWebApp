@@ -11,6 +11,7 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
     [Table("DoctorTB")]
     public partial class DoctorTB
     {
+        PasswordHelper passwordHelper = new PasswordHelper();
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DoctorTB()
         {
@@ -34,6 +35,13 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
+
+        [NotMapped]
+        public string NameED
+        {
+            get { return passwordHelper.AesDecryption(Name); }
+            set { }
+        }
 
         [StringLength(150)]
         public string Address { get; set; }
@@ -62,6 +70,13 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         [Remote("IsEmailUnique", "Account", ErrorMessage = "This Email Already Registread")]
         public string Email { get; set; }
 
+        [NotMapped]
+        public string EmailED
+        {
+            get { return passwordHelper.AesDecryption(Email); }
+            set { }
+        }
+
         [Required]
         [StringLength(20)]
         public string Password { get; set; }
@@ -79,7 +94,7 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         [DisplayFormat(DataFormatString = "{0:hh\\:mm\\:tt}", ApplyFormatInEditMode = true)]
         public string VisitingTimeEnd { get; set; }
 
-        
+
 
         public virtual DepartmentTB DepartmentTB { get; set; }
 

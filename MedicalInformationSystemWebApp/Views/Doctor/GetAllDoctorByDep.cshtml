@@ -6,41 +6,41 @@
 @section Style{
     <style>
         body {
-            counter-reset: Serial; 
+            counter-reset: Serial;
         }
+
         table tr td {
             text-align: left;
         }
-        tr td:first-child:before
-        {
-            counter-increment: Serial;      /* Increment the Serial counter */
-            content:counter(Serial); /* Display the counter */
+
+        tr td:first-child:before {
+            counter-increment: Serial; /* Increment the Serial counter */
+            content: counter(Serial); /* Display the counter */
         }
-           
     </style>
 }
 
 @using (Html.BeginForm(null, null, FormMethod.Post))
 {
-    <div class="form-group">
-        @Html.LabelFor(model=>model.DepartmentId)
-        @Html.DropDownList("DepartmentId", null, "--Select--", new {@class = "form-control"})
+    <div class="form-group ">
+        @Html.LabelFor(model => model.DepartmentId, "Department")
+        @Html.DropDownList("DepartmentId", null, "--Select Department--", new { @class = "form-control center" })
     </div>
 
-    <h4>Course Information</h4>
-    
+    <h4 class="text-center text-info">Doctor List</h4>
+
 }
 
 <table class="table">
     <thead>
-    <tr>
-        <th rowspan="1">SL</th>
-        <th>Name</th>
-        <th>Visit Time</th>
-        <th>Visit Day</th>
-    </tr>
+        <tr>
+            <th rowspan="1">SL</th>
+            <th>Name</th>
+            <th>Visit Time</th>
+            <th>Visit Day</th>
+        </tr>
     </thead>
-    <tbody id="courseInfo"></tbody>
+    <tbody id="doctorList"></tbody>
 
 </table>
 @section scripts
@@ -53,7 +53,7 @@
                     var json = {
                         departmentId: depId
                     };
-                    $("#courseInfo").empty();
+                    $("#doctorList").empty();
                     $.ajax({
                         type: "POST",
                         url: '@Url.Action("GetAllDoctorByDepartmentId", "Doctor")',
@@ -65,7 +65,7 @@
                             $.each(data,
                                 function (key, value) {
 
-                                    $("#courseInfo").append('<tr><td></td><td>' + value.Name + '</td><td>' + value.Start +'-'+value.End +'</td><td>' + value.VisitDay + '</td></tr>');
+                                    $("#doctorList").append('<tr><td></td><td>' + value.Name + '</td><td>' + value.Start +'-'+value.End +'</td><td>' + value.VisitDay + '</td></tr>');
 
                                 });
                         }

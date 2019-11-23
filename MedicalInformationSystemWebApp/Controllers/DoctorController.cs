@@ -15,6 +15,7 @@ namespace MedicalInformationSystemWebApp.Controllers
 {
     public class DoctorController : Controller
     {
+        private string name;
         private MedicalInfoSys db = new MedicalInfoSys();
         PasswordHelper passwordHelper = new PasswordHelper();
 
@@ -26,7 +27,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         }
 
         // GET: Doctor/Details/5
-        
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -56,21 +57,23 @@ namespace MedicalInformationSystemWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DoctorId,DepartmentId,SpealizationId,DesignationId,RoleId,Name,Address,Phone,Dob,Gender,VisitingTimeStart,VisitingTimeEnd,VisitDay,Joined,Email,Password")] DoctorTB doctorTB,HttpPostedFileBase UploadImage)
+        public ActionResult Create([Bind(Include = "DoctorId,DepartmentId,SpealizationId,DesignationId,RoleId,Name,Address,Phone,Dob,Gender,VisitingTimeStart,VisitingTimeEnd,VisitDay,Joined,Email,Password")] DoctorTB doctorTB, HttpPostedFileBase UploadImage)
         {
             Random r = new Random();
             int random = r.Next();
             if (ModelState.IsValid)
             {
+                doctorTB.Name = passwordHelper.AesEncryption(doctorTB.Name);
+                doctorTB.Email = passwordHelper.AesEncryption(doctorTB.Email);
                 if (UploadImage != null)
                 {
-                    
+
                     if (UploadImage.ContentType == "image/jpg" || UploadImage.ContentType == "image/png" ||
                         UploadImage.ContentType == "image/jpeg")
                     {
                         string fileName = random + UploadImage.FileName;
                         UploadImage.SaveAs(Server.MapPath("/") + "/Content/EmployeeImage/" + fileName);
-                        doctorTB.ImagePath =fileName;
+                        doctorTB.ImagePath = fileName;
                     }
                     else
                     {
@@ -103,11 +106,14 @@ namespace MedicalInformationSystemWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             DoctorTB doctorTB = db.DoctorTBs.Find(id);
             if (doctorTB == null)
             {
                 return HttpNotFound();
             }
+
+            name = db.DoctorTBs.Find(id).Name;
             ViewBag.DepartmentId = new SelectList(db.DepartmentTBs, "Id", "DepartmentName", doctorTB.DepartmentId);
             ViewBag.DesignationId = new SelectList(db.DesignationTBs, "Id", "DesignationName", doctorTB.DesignationId);
             ViewBag.RoleId = new SelectList(db.RoleTBs, "Id", "Role", doctorTB.RoleId);
@@ -120,21 +126,24 @@ namespace MedicalInformationSystemWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DoctorId,DepartmentId,SpealizationId,DesignationId,RoleId,Name,Address,Phone,Dob,Gender,VisitingTimeStart,VisitingTimeEnd,ImagePath,Joined,Email,Password")] DoctorTB doctorTB , HttpPostedFileBase UploadImage)
+        public ActionResult Edit([Bind(Include = "DoctorId,DepartmentId,SpealizationId,DesignationId,RoleId,Name,Address,Phone,Dob,Gender,VisitingTimeStart,VisitingTimeEnd,ImagePath,Joined,Email,Password")] DoctorTB doctorTB, HttpPostedFileBase UploadImage)
         {
+
             Random r = new Random();
             int random = r.Next();
             if (ModelState.IsValid)
             {
+
+
                 if (UploadImage != null)
                 {
-                    
+
                     if (UploadImage.ContentType == "image/jpg" || UploadImage.ContentType == "image/png" ||
                         UploadImage.ContentType == "image/jpeg")
                     {
                         string fileName = random + UploadImage.FileName;
                         UploadImage.SaveAs(Server.MapPath("/") + "/Content/EmployeeImage/" + fileName);
-                        doctorTB.ImagePath =fileName;
+                        doctorTB.ImagePath = fileName;
                     }
                     else
                     {
@@ -143,13 +152,13 @@ namespace MedicalInformationSystemWebApp.Controllers
                 }
                 else
                 {
-                    string k=null;
+                    string k = null;
                     var id = doctorTB.DoctorId;
                     //var i = from im in db.DoctorTBs
                     //    where im.DoctorId == doctorTB.DoctorId
                     //    select new {img = im.ImagePath};
 
-                    var i = db.DoctorTBs.Where(c => c.DoctorId == doctorTB.DoctorId).Select(c=>c.ImagePath);
+                    var i = db.DoctorTBs.Where(c => c.DoctorId == doctorTB.DoctorId).Select(c => c.ImagePath);
 
                     foreach (var m in i)
                     {
@@ -160,7 +169,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                     //doctorTB.ImagePath = "profile.png";
                 }
 
-                if (doctorTB.VisitingTimeStart!=null && doctorTB.VisitingTimeEnd!=null && doctorTB.VisitDay!=null)
+                if (doctorTB.VisitingTimeStart != null && doctorTB.VisitingTimeEnd != null && doctorTB.VisitDay != null)
                 {
                     doctorTB.VisitingTimeStart = doctorTB.VisitingTimeStart;
                     doctorTB.VisitingTimeEnd = doctorTB.VisitingTimeEnd;
@@ -168,10 +177,12 @@ namespace MedicalInformationSystemWebApp.Controllers
                 }
                 else
                 {
-                    string vDay=null,vtimeStart=null,vtimeEnd=null;
+                    string vDay = null, vtimeStart = null, vtimeEnd = null;
                     var i = db.DoctorTBs.Where(c => c.DoctorId == doctorTB.DoctorId).Select(c => new
                     {
-                        c.VisitingTimeEnd,c.VisitingTimeStart,c.VisitDay
+                        c.VisitingTimeEnd,
+                        c.VisitingTimeStart,
+                        c.VisitDay
                     });
                     foreach (var m in i)
                     {
@@ -184,6 +195,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                     doctorTB.VisitingTimeEnd = vtimeEnd;
                     doctorTB.VisitDay = vDay;
                 }
+
                 db.Entry(doctorTB).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -242,17 +254,18 @@ namespace MedicalInformationSystemWebApp.Controllers
         {
             ViewBag.DepartmentId = new SelectList(db.DepartmentTBs, "Id", "DepartmentName");
             //var df = new List<DoctorTB>();
-
+            var na = db.DoctorTBs.Single(c => c.DepartmentId == departmentId).Name.ToString();
+            na = passwordHelper.AesDecryption(na);
             var GetAllDoctor = from dc in db.DoctorTBs
-                    where dc.DepartmentId == departmentId
-                    select new
-                    {
-                        Img=dc.ImagePath.ToString(),
-                        dc.Name,
-                        Start =dc.VisitingTimeStart.ToString(),
-                        End=dc.VisitingTimeEnd.ToString(),
-                        dc.VisitDay,
-                    };
+                               where dc.DepartmentId == departmentId
+                               select new
+                               {
+                                   Img = dc.ImagePath.ToString(),
+                                   Name = na,
+                                   Start = dc.VisitingTimeStart.ToString(),
+                                   End = dc.VisitingTimeEnd.ToString(),
+                                   dc.VisitDay,
+                               };
             //var GetAllDoctor =
             //    db.DoctorTBs.Where(c => c.DepartmentId == departmentId).Select(c => c.Name);
             //foreach (var dn in GetAllDoctor)
