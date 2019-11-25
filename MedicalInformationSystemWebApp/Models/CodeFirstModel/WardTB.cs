@@ -11,6 +11,7 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
     [Table("WardTB")]
     public partial class WardTB
     {
+        PasswordHelper passwordHelper = new PasswordHelper();
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public WardTB()
         {
@@ -26,6 +27,13 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         [StringLength(50)]
         [Remote("IswardUnique", "Ward", ErrorMessage = "This Ward Already Added")]
         public string WardNo { get; set; }
+
+        [NotMapped]
+        public string wwardno
+        {
+            get { return passwordHelper.AesDecryption(WardNo); }
+            set { }
+        }
 
         public int DepartmentId { get; set; }
 

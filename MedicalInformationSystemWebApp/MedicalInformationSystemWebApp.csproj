@@ -356,6 +356,7 @@
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\googlefont.css" />
     <Content Include="Content\HomePage\asset\Cursol\doctor.jpg" />
     <Content Include="Content\HomePage\asset\Cursol\doctor1.png" />
     <Content Include="Content\HomePage\asset\Cursol\loveDoctor.jpg" />
@@ -607,6 +608,7 @@
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\fontawasome.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />

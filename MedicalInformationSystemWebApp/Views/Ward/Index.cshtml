@@ -1,7 +1,9 @@
-﻿@model IEnumerable<MedicalInformationSystemWebApp.Models.CodeFirstModel.WardTB>
+﻿@using MedicalInformationSystemWebApp.Models
+@model IEnumerable<MedicalInformationSystemWebApp.Models.CodeFirstModel.WardTB>
 
 @{
     ViewBag.Title = "Index";
+    PasswordHelper passwordHelper = new PasswordHelper();
 }
 
 <br />
@@ -39,7 +41,7 @@
                 @Html.DisplayFor(modelItem => item.DepartmentTB.DepartmentName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.WardNo)
+                @Html.DisplayFor(modelItem => item.wwardno)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SeatQuentity)

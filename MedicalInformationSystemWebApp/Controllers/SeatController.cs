@@ -4,16 +4,19 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
+using MedicalInformationSystemWebApp.Models;
 using MedicalInformationSystemWebApp.Models.CodeFirstModel;
 
 namespace MedicalInformationSystemWebApp.Controllers
 {
     public class SeatController : Controller
     {
+        PasswordHelper passwordHelper = new PasswordHelper();
         private MedicalInfoSys db = new MedicalInfoSys();
-
+        private AesManaged aes = new AesManaged();
         // GET: Seat
         public ActionResult Index()
         {
@@ -39,7 +42,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         // GET: Seat/Create
         public ActionResult Create()
         {
-            ViewBag.WardId = new SelectList(db.WardTBs, "Id", "WardNo");
+            ViewBag.WardId = new SelectList(db.WardTBs, "Id", "wwardno");
             return View();
         }
 
@@ -53,6 +56,7 @@ namespace MedicalInformationSystemWebApp.Controllers
             if (ModelState.IsValid)
             {
                 //--------------Update ward Available seat------------ -//
+                seatTB.SeatNo = passwordHelper.AesEncryption(seatTB.SeatNo);
                 int avSeat = Convert.ToInt32(db.WardTBs.Single(c => c.Id == seatTB.WardId).SeatQuentity);
                 avSeat = avSeat + 1;
                 WardTB sWardTb = (from wt in db.WardTBs
@@ -69,7 +73,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.WardId = new SelectList(db.WardTBs, "Id", "WardNo", seatTB.WardId);
+            ViewBag.WardId = new SelectList(db.WardTBs, "Id", "wwardno", seatTB.WardId);
             return View(seatTB);
         }
 
@@ -85,7 +89,7 @@ namespace MedicalInformationSystemWebApp.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.WardId = new SelectList(db.WardTBs, "Id", "WardNo", seatTB.WardId);
+            ViewBag.WardId = new SelectList(db.WardTBs, "Id", "wwardno", seatTB.WardId);
             return View(seatTB);
         }
 
@@ -98,11 +102,16 @@ namespace MedicalInformationSystemWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (seatTB.SeatNo.Length < 7)
+                {
+                    seatTB.SeatNo = passwordHelper.AesEncryption(seatTB.SeatNo);
+                }
+
                 db.Entry(seatTB).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.WardId = new SelectList(db.WardTBs, "Id", "WardNo", seatTB.WardId);
+            ViewBag.WardId = new SelectList(db.WardTBs, "Id", "wwardno", seatTB.WardId);
             return View(seatTB);
         }
 
@@ -131,8 +140,8 @@ namespace MedicalInformationSystemWebApp.Controllers
             int avSeat = Convert.ToInt32(db.WardTBs.Single(c => c.Id == wardId).SeatQuentity);
             avSeat = avSeat - 1;
             WardTB sWardTb = (from wt in db.WardTBs
-                where wt.Id == wardId
-                    select wt).SingleOrDefault();
+                              where wt.Id == wardId
+                              select wt).SingleOrDefault();
             sWardTb.SeatQuentity = avSeat;
             sWardTb.AvailableSeat = avSeat;
             db.SaveChanges();
@@ -157,7 +166,8 @@ namespace MedicalInformationSystemWebApp.Controllers
         [AllowAnonymous]
         public JsonResult IsSeatUnique(string SeatNo)
         {
-            bool isSeatValid = db.SeatTBs.Any(x => x.SeatNo == SeatNo);
+            string seat = passwordHelper.AesEncryption(SeatNo);
+            bool isSeatValid = db.SeatTBs.Any(x => x.SeatNo == seat);
 
             if (isSeatValid)
             {
@@ -174,7 +184,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         {
             int totalSeat = Convert.ToInt32(db.WardTBs.Single(c => c.Id == wardId).TotalSeat);
             int seatQnt = Convert.ToInt32(db.WardTBs.Single(c => c.Id == wardId).SeatQuentity);
-            if (totalSeat==seatQnt)
+            if (totalSeat == seatQnt)
             {
                 return Json(0);// 0 for false
             }

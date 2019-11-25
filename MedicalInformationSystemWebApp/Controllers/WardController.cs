@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MedicalInformationSystemWebApp.Models;
 using MedicalInformationSystemWebApp.Models.CodeFirstModel;
 
 namespace MedicalInformationSystemWebApp.Controllers
@@ -13,6 +14,7 @@ namespace MedicalInformationSystemWebApp.Controllers
     public class WardController : Controller
     {
         private MedicalInfoSys db = new MedicalInfoSys();
+        PasswordHelper passwordHelper = new PasswordHelper();
 
         // GET: Ward
         public ActionResult Index()
@@ -53,10 +55,11 @@ namespace MedicalInformationSystemWebApp.Controllers
             if (ModelState.IsValid)
             {
                 //wardTB.AvailableSeat = wardTB.SeatQuentity;
+                wardTB.WardNo = passwordHelper.AesEncryption(wardTB.WardNo);
                 wardTB.AvailableSeat = 0;
                 wardTB.SeatQuentity = 0;
                 db.WardTBs.Add(wardTB);
-                
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -137,7 +140,8 @@ namespace MedicalInformationSystemWebApp.Controllers
         [AllowAnonymous]
         public JsonResult IswardUnique(string WardNo)
         {
-            bool isWardValid = db.WardTBs.Any(x => x.WardNo == WardNo);
+            string wardNo = passwordHelper.AesEncryption(WardNo);
+            bool isWardValid = db.WardTBs.Any(x => x.WardNo == wardNo);
 
             if (isWardValid)
             {
@@ -150,10 +154,10 @@ namespace MedicalInformationSystemWebApp.Controllers
 
 
 
-       //total Seat Update check///
+        //total Seat Update check///
         //public int seat(int availableSeat,int seatQnt,int totalSeat)
         //{
-            
+
         //    int beforUpdateSeat = availableSeat+seatQnt;
         //    int aSeat = 0;
         //    if (totalSeat > beforUpdateSeat)

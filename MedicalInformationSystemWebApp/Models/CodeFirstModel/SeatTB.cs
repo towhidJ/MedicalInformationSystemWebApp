@@ -11,6 +11,8 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
     [Table("SeatTB")]
     public partial class SeatTB
     {
+        PasswordHelper passwordHelper = new PasswordHelper();
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SeatTB()
         {
@@ -25,7 +27,19 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         [Required]
         [Display(Name = "Seat No")]
         [Remote("IsSeatUnique", "Seat", ErrorMessage = "This Seat Number Already Added")]
-        public string SeatNo { get; set; }
+        public string SeatNo
+        {
+            get;
+            set;
+        }
+
+        [NotMapped]
+        public string seat
+        {
+            get { return passwordHelper.AesDecryption(SeatNo); }
+            set { SeatNo = passwordHelper.AesEncryption(seat); }
+        }
+
         //public int SeatQuentity { get; set; }
 
         //public int AvailableSeat { get; set; }
