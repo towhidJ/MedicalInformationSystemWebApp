@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using MedicalInformationSystemWebApp.Models;
 using MedicalInformationSystemWebApp.Models.CodeFirstModel;
 
 namespace MedicalInformationSystemWebApp
@@ -41,6 +42,8 @@ namespace MedicalInformationSystemWebApp
         {
             using (var context = new MedicalInfoSys())
             {
+                PasswordHelper passwordHelper = new PasswordHelper();
+                string userN = passwordHelper.AesEncryption(username);
                 if (context.AdminTBs.Any(x=>x.Email==username))
                 {
                     var AdminResult = (from roleTB in context.RoleTBs
@@ -49,11 +52,11 @@ namespace MedicalInformationSystemWebApp
                         select roleTB.Role).ToArray();
                     return AdminResult;
                 }
-                if (context.DoctorTBs.Any(x => x.Email == username))
+                if (context.DoctorTBs.Any(x => x.Email == userN))
                 {
                     var DoctorResult = (from roleTB in context.RoleTBs
                         join doctorTB in context.DoctorTBs on roleTB.Id equals doctorTB.RoleId
-                        where doctorTB.Email == username
+                        where doctorTB.Email == userN
                         select roleTB.Role).ToArray();
                     return DoctorResult;
                 }

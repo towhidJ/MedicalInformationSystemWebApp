@@ -41,7 +41,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         // GET: PrescribeTest/Create
         public ActionResult Create()
         {
-            ViewBag.RefferDoctorId = new SelectList(db.DoctorTBs, "DoctorId", "Name");
+            ViewBag.RefferDoctorId = new SelectList(db.DoctorTBs, "DoctorId", "NameED");
             ViewBag.PatientId = new SelectList(db.PatientTBs, "Id", "Name");
             return View();
         }
@@ -60,7 +60,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.RefferDoctorId = new SelectList(db.DoctorTBs, "DoctorId", "Name", prescribeTestTB.RefferDoctorId);
+            ViewBag.RefferDoctorId = new SelectList(db.DoctorTBs, "DoctorId", "NameED", prescribeTestTB.RefferDoctorId);
             ViewBag.PatientId = new SelectList(db.PatientTBs, "Id", "Name", prescribeTestTB.PatientId);
             return View(prescribeTestTB);
         }
@@ -161,7 +161,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                 ViewBag.Name = prescribeTest.PatientTB.Name;
                 ViewBag.Date = DateTime.Now.ToString("yyyy-M-d dddd");
                 ViewBag.Age = prescribeTest.PatientTB.Age;
-                ViewBag.Doctor = prescribeTest.DoctorTB.Name;
+                ViewBag.Doctor = prescribeTest.DoctorTB.NameED;
                 ViewBag.DoctorTitle = prescribeTest.DoctorTB.DesignationTB.DesignationName;
                 ViewBag.DoctorS = prescribeTest.DoctorTB.SpealizationTB.Type;
                 ViewBag.Day = prescribeTest.DoctorTB.VisitDay;
