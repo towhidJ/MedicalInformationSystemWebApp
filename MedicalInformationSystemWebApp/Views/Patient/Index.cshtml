@@ -18,12 +18,6 @@
 <table class=" table form-design animated lightSpeedIn">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.SeatTB.SeatNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.WardTB.WardNo)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
@@ -33,16 +27,10 @@
             @Html.DisplayNameFor(model => model.Gender)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.AdmitDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ImagePath)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Problem)
         </th>
         <th class="text-danger">Action</th>
     </tr>
@@ -51,13 +39,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.SeatTB.SeatNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WardTB.WardNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.NameED)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Age)
@@ -66,18 +48,12 @@
                 @Html.DisplayFor(modelItem => item.Gender)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.AdmitDate)
             </td>
             <td>
                 <img class="rounded-circle" src="~/Content/EmployeeImage/@item.ImagePath" width="50" height="50" />
 
                 @*<a href="~/Content/EmployeeImage/@item.ImagePath">@Html.DisplayFor(modelItem => item.ImagePath)</a>*@
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Problem)
             </td>
             <td style="width: 100px">
                 <div class="btn-group">

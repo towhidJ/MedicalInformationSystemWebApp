@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MedicalInformationSystemWebApp.Models;
 using MedicalInformationSystemWebApp.Models.CodeFirstModel;
 
 namespace MedicalInformationSystemWebApp.Controllers
@@ -13,6 +14,7 @@ namespace MedicalInformationSystemWebApp.Controllers
     public class PatientController : Controller
     {
         private MedicalInfoSys db = new MedicalInfoSys();
+        PasswordHelper passwordHelper = new PasswordHelper();
 
         // GET: Patient
         public ActionResult Index()
@@ -39,10 +41,10 @@ namespace MedicalInformationSystemWebApp.Controllers
         // GET: Patient/Create
         public ActionResult Create()
         {
-            ViewBag.SeatId = new SelectList(db.SeatTBs, "Id", "SeatNo");
-            ViewBag.WardId = new SelectList(db.WardTBs, "Id", "WardNo");
-            ViewBag.DoctorId = new SelectList(db.DoctorTBs, "DoctorId", "Name");
-            ViewBag.NurseId = new SelectList(db.NurseTBs, "NurseId", "Name");
+            ViewBag.SeatId = new SelectList(db.SeatTBs, "Id", "seat");
+            ViewBag.WardId = new SelectList(db.WardTBs, "Id", "wwardno");
+            ViewBag.DoctorId = new SelectList(db.DoctorTBs, "DoctorId", "NameED");
+            ViewBag.NurseId = new SelectList(db.NurseTBs, "NurseId", "NameED");
             return View();
         }
 
@@ -58,6 +60,10 @@ namespace MedicalInformationSystemWebApp.Controllers
                 patientTB.Action = 1;
                 Random r = new Random();
                 int random = r.Next();
+
+                
+
+
                 if (UploadImage != null)
                 {
 
@@ -86,17 +92,20 @@ namespace MedicalInformationSystemWebApp.Controllers
                     select wt).SingleOrDefault();
                 sWardTb.AvailableSeat = avSeat;
                 db.SaveChanges();
+                patientTB.Name = passwordHelper.AesEncryption(patientTB.Name);
+                patientTB.Address = passwordHelper.AesEncryption(patientTB.Address);
+                patientTB.Problem = passwordHelper.AesEncryption(patientTB.Problem);
                 db.PatientTBs.Add(patientTB);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SeatId = new SelectList(db.SeatTBs, "Id", "SeatNo", patientTB.SeatId);
+            ViewBag.SeatId = new SelectList(db.SeatTBs, "Id", "seat", patientTB.SeatId);
             var ward = db.WardTBs.Select(c => new {c.Id, c.WardNo});
-            ViewBag.WardId = new SelectList(ward, "Id", "WardNo", patientTB.WardId);
+            ViewBag.WardId = new SelectList(ward, "Id", "wwardno", patientTB.WardId);
 
-            ViewBag.DoctorId = new SelectList(db.DoctorTBs, "DoctorId", "Name");
-            ViewBag.NurseId = new SelectList(db.NurseTBs, "NurseId", "Name");
+            ViewBag.DoctorId = new SelectList(db.DoctorTBs, "DoctorId", "NameED");
+            ViewBag.NurseId = new SelectList(db.NurseTBs, "NurseId", "NameED");
             return View(patientTB);
         }
 
@@ -112,8 +121,10 @@ namespace MedicalInformationSystemWebApp.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SeatId = new SelectList(db.SeatTBs, "Id", "SeatNo", patientTB.SeatId);
-            ViewBag.WardId = new SelectList(db.WardTBs, "Id", "WardNo", patientTB.WardId);
+            ViewBag.SeatId = new SelectList(db.SeatTBs, "Id", "seat", patientTB.SeatId);
+            ViewBag.DoctorId = new SelectList(db.DoctorTBs, "DoctorId", "NameED",patientTB.DoctorId);
+            ViewBag.NurseId = new SelectList(db.NurseTBs, "NurseId", "NameED",patientTB.NurseId);
+            ViewBag.WardId = new SelectList(db.WardTBs, "Id", "wwardno", patientTB.WardId);
             return View(patientTB);
         }
 
@@ -122,7 +133,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Age,Gender,Address,AdmitDate,WardId,SeatId,ImagePath,Problem")] PatientTB patientTB, HttpPostedFileBase UploadImage)
+        public ActionResult Edit([Bind(Include = "Id,Name,Age,Gender,Address,AdmitDate,WardId,SeatId,DoctorId,NurseId,ImagePath,Problem")] PatientTB patientTB, HttpPostedFileBase UploadImage)
         {
             if (ModelState.IsValid)
             {
@@ -162,6 +173,10 @@ namespace MedicalInformationSystemWebApp.Controllers
 
                     //doctorTB.ImagePath = "profile.png";
                 }
+                if (patientTB.Name.Length < 15)
+                {
+                    patientTB.Name = passwordHelper.AesEncryption(patientTB.Name);
+                }
 
                 //--------------Update ward Available seat------------ -//
                 int avSeat = Convert.ToInt32(db.WardTBs.Single(c => c.Id == patientTB.WardId).AvailableSeat);
@@ -175,8 +190,10 @@ namespace MedicalInformationSystemWebApp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SeatId = new SelectList(db.SeatTBs, "Id", "SeatNo", patientTB.SeatId);
-            ViewBag.WardId = new SelectList(db.WardTBs, "Id", "WardNo", patientTB.WardId);
+            ViewBag.SeatId = new SelectList(db.SeatTBs, "Id", "seat", patientTB.SeatId);
+            ViewBag.DoctorId = new SelectList(db.DoctorTBs, "DoctorId", "NameED", patientTB.DoctorId);
+            ViewBag.NurseId = new SelectList(db.NurseTBs, "NurseId", "NameED", patientTB.NurseId);
+            ViewBag.WardId = new SelectList(db.WardTBs, "Id", "wwardno", patientTB.WardId);
             return View(patientTB);
         }
 

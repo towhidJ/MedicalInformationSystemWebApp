@@ -38,7 +38,7 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         [Required]
         public int NurseId { get; set; }
 
-        [StringLength(50)]
+        [StringLength(250)]
         public string Address { get; set; }
         [NotMapped]
         public string AddressED
@@ -57,7 +57,7 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         [Display(Name = "Seat")]
         public int SeatId { get; set; }
 
-        [StringLength(250)]
+        [StringLength(350)]
         public string Problem { get; set; }
         [NotMapped]
         public string ProblemED
