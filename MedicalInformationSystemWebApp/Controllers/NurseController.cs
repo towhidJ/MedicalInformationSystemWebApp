@@ -59,8 +59,14 @@ namespace MedicalInformationSystemWebApp.Controllers
 
             Random r = new Random();
             int random = r.Next();
+
+
             if (ModelState.IsValid)
             {
+                nurseTB.Name = passwordHelper.AesEncryption(nurseTB.Name);
+                nurseTB.Email = passwordHelper.AesEncryption(nurseTB.Email);
+                nurseTB.Address = passwordHelper.AesEncryption(nurseTB.Address);
+                nurseTB.Phone = passwordHelper.AesEncryption(nurseTB.Phone);
                 if (UploadImage != null)
                 {
 
@@ -163,6 +169,10 @@ namespace MedicalInformationSystemWebApp.Controllers
                     }
 
                     nurseTB.Password = pass;
+                }
+                if (nurseTB.Name.Length < 15)
+                {
+                    nurseTB.Name = passwordHelper.AesEncryption(nurseTB.Name);
                 }
                 db.Entry(nurseTB).State = EntityState.Modified;
                 db.SaveChanges();
