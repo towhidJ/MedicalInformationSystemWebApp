@@ -140,6 +140,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         {
             var TestInfo = db.PrescribeTestTBs.Where(c => c.Id == prescribeTestId  && c.TestName!=null)
                 .Select(c => new {name = c.PatientTB.Name, testName = c.TestName.ToString()});
+
             return Json(TestInfo);
         }
 
@@ -157,13 +158,13 @@ namespace MedicalInformationSystemWebApp.Controllers
             List<string> TestName = new List<string>();
             foreach (var pt in pTest)
             {
-                var tN = pt.PrescribeTestTB.TestName.Split(',');
+                var tN = pt.PrescribeTestTB.TestNameED.Split(',');
 
                 for (int i = 0; i < tN.Length; i++)
                 {
                     TestName.Add(tN[i].ToString() + "\n");
                 }
-                ViewBag.Name = pt.PrescribeTestTB.PatientTB.Name;
+                ViewBag.Name = pt.PrescribeTestTB.PatientTB.NameED;
                 ViewBag.TD = pt.TestDate.ToString("yyyy-M-d dddd");
                 ViewBag.DD = pt.DeliveryDate.ToString("yyyy-M-d dddd");
                 ViewBag.TestFee = pt.TestFee;

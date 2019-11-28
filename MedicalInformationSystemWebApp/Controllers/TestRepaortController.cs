@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MedicalInformationSystemWebApp.Models;
 using MedicalInformationSystemWebApp.Models.CodeFirstModel;
 using Rotativa;
 
@@ -13,6 +14,7 @@ namespace MedicalInformationSystemWebApp.Controllers
 {
     public class TestRepaortController : Controller
     {
+        PasswordHelper passwordHelper = new PasswordHelper();
         private MedicalInfoSys db = new MedicalInfoSys();
 
         // GET: TestRepaort
@@ -53,6 +55,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                testRepaortTB.Report = passwordHelper.AesEncryption(testRepaortTB.Report);
                 db.TestRepaortTBs.Add(testRepaortTB);
                 db.SaveChanges();
                 return RedirectToAction("Index");
