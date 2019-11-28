@@ -11,7 +11,7 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
     [Table("NurseTB")]
     public partial class NurseTB
     {
-
+        PasswordHelper passwordHelper = new PasswordHelper();
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NurseTB()
         {
@@ -23,15 +23,34 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         public int NurseId { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(150)]
         public string Name { get; set; }
 
-        [StringLength(150)]
-        public string Address { get; set; }
 
+        [NotMapped]
+        public string NameED
+        {
+            get { return passwordHelper.AesDecryption(Name); }
+            set { }
+        }
+
+        [StringLength(250)]
+        public string Address { get; set; }
+        [NotMapped]
+        public string AddressED
+        {
+            get { return passwordHelper.AesDecryption(Address); }
+            set { }
+        }
         [Required]
-        [StringLength(14)]
+        [StringLength(150)]
         public string Phone { get; set; }
+        [NotMapped]
+        public string PhoneED
+        {
+            get { return passwordHelper.AesDecryption(Phone); }
+            set { }
+        }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
         [Column(TypeName = "date")]
@@ -50,9 +69,15 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         public string ImagePath { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(150)]
         [Remote("IsEmailUnique", "Account", ErrorMessage = "This Email Already Registread")]
         public string Email { get; set; }
+        [NotMapped]
+        public string EmailED
+        {
+            get { return passwordHelper.AesDecryption(Email); }
+            set { }
+        }
 
         [Required]
         [StringLength(200, MinimumLength=6)]

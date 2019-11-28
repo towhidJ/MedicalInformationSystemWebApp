@@ -43,11 +43,23 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
             set { }
         }
 
-        [StringLength(150)]
+        [StringLength(250)]
         public string Address { get; set; }
+        [NotMapped]
+        public string AddressED
+        {
+            get { return passwordHelper.AesDecryption(Address); }
+            set { }
+        }
 
-        [StringLength(14)]
+        [StringLength(250)]
         public string Phone { get; set; }
+        [NotMapped]
+        public string PhoneED
+        {
+            get { return passwordHelper.AesDecryption(Phone); }
+            set { }
+        }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
         [Column(TypeName = "date")]
@@ -66,7 +78,7 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         public DateTime Joined { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(200)]
         [Remote("IsEmailUnique", "Account", ErrorMessage = "This Email Already Registread")]
         public string Email { get; set; }
 

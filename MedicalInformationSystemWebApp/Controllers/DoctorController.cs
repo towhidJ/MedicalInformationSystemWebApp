@@ -65,6 +65,8 @@ namespace MedicalInformationSystemWebApp.Controllers
             {
                 doctorTB.Name = passwordHelper.AesEncryption(doctorTB.Name);
                 doctorTB.Email = passwordHelper.AesEncryption(doctorTB.Email);
+                doctorTB.Address = passwordHelper.AesEncryption(doctorTB.Address);
+                doctorTB.Phone = passwordHelper.AesEncryption(doctorTB.Phone);
                 if (UploadImage != null)
                 {
 

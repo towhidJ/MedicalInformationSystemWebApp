@@ -9,6 +9,7 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
     [Table("PatientTB")]
     public partial class PatientTB
     {
+        PasswordHelper passwordHelper = new PasswordHelper();
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PatientTB()
         {
@@ -22,7 +23,12 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         [Required]
         [StringLength(150)]
         public string Name { get; set; }
-
+        [NotMapped]
+        public string NameED
+        {
+            get { return passwordHelper.AesDecryption(Name); }
+            set { }
+        }
         public int Age { get; set; }
 
         public int Action { get; set; }
@@ -34,7 +40,12 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
 
         [StringLength(50)]
         public string Address { get; set; }
-
+        [NotMapped]
+        public string AddressED
+        {
+            get { return passwordHelper.AesDecryption(Address); }
+            set { }
+        }
         [Column(TypeName = "date")]
         public DateTime AdmitDate { get; set; }
 
@@ -48,7 +59,12 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
 
         [StringLength(250)]
         public string Problem { get; set; }
-
+        [NotMapped]
+        public string ProblemED
+        {
+            get { return passwordHelper.AesDecryption(Problem); }
+            set { }
+        }
         [StringLength(150)]
         public string ImagePath { get; set; }
 
