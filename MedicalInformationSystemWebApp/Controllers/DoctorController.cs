@@ -15,7 +15,6 @@ namespace MedicalInformationSystemWebApp.Controllers
 {
     public class DoctorController : Controller
     {
-        private string na;
         private MedicalInfoSys db = new MedicalInfoSys();
         PasswordHelper passwordHelper = new PasswordHelper();
 
