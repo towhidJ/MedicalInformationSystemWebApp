@@ -40,7 +40,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         // GET: Appointment/Create
         public ActionResult Create()
         {
-            ViewBag.DoctorId = new SelectList(db.DoctorTBs, "DoctorId", "Name");
+            ViewBag.DoctorId = new SelectList(db.DoctorTBs, "DoctorId", "NameED");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                 return RedirectToAction("ShowAppoinment","Appointment",new {id=id});
             }
 
-            ViewBag.DoctorId = new SelectList(db.DoctorTBs, "DoctorId", "Name", appointmentTB.DoctorId);
+            ViewBag.DoctorId = new SelectList(db.DoctorTBs, "DoctorId", "NameED", appointmentTB.DoctorId);
             return View(appointmentTB);
         }
 
@@ -201,7 +201,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                 ViewBag.Type = appLL.Type;
                 ViewBag.Fee = appLL.AppointmentFee;
                 ViewBag.Age = appLL.Age;
-                ViewBag.Doctor = appLL.DoctorTB.Name;
+                ViewBag.Doctor = appLL.DoctorTB.NameED;
             }
             return View(appL);
         }
