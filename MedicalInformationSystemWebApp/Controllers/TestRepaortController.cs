@@ -150,13 +150,13 @@ namespace MedicalInformationSystemWebApp.Controllers
             List<string> TestReport = new List<string>();
             foreach (var TR in testRepaort)
             {
-                ViewBag.Name = TR.TestTB.PrescribeTestTB.PatientTB.Name;
+                ViewBag.Name = TR.TestTB.PrescribeTestTB.PatientTB.NameED;
                 ViewBag.TD = TR.TestTB.TestDate.ToString("yyyy-M-d dddd");
                 ViewBag.DD = TR.TestTB.DeliveryDate.ToString("yyyy-M-d dddd");
                 ViewBag.Age = TR.TestTB.PrescribeTestTB.PatientTB.Age;
                 ViewBag.Sex = TR.TestTB.PrescribeTestTB.PatientTB.Gender;
 
-                var tN = TR.Report.Split(',');
+                var tN = TR.ReportED.Split(',');
 
                 for (int i = 0; i < tN.Length; i++)
                 {
@@ -171,7 +171,7 @@ namespace MedicalInformationSystemWebApp.Controllers
 
         public ActionResult Print(int id)
         {
-            return new ActionAsPdf("AppointmentSlip", new { id = id });
+            return new ActionAsPdf("TestResult", new { id = id });
         }
     }
 }

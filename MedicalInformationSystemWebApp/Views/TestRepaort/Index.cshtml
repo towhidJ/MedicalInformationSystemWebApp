@@ -29,10 +29,13 @@
         <td>
             @Html.DisplayFor(modelItem => item.ReportED)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        <td style="width: 100px">
+            <div class="btn-group">
+                <a class="btn btn-primary" href="@Url.Action("Edit", "TestRepaort", new {id = item.Id})"><i class="far fa-edit"></i></a>
+                <a class="btn btn-success" href="@Url.Action("Details", "TestRepaort", new {id = item.Id})"><i class="fas fa-list-ul"></i></a>
+                <a class="btn btn-danger" href="@Url.Action("Delete", "TestRepaort", new {id = item.Id})"><i class="fas fa-trash-alt"></i></a>
+                <a class="btn btn-dark" href="@Url.Action("Print", "TestRepaort", new {id = item.Id})"><i class="fas fa-print">Print</i></a>
+            </div>
         </td>
     </tr>
 }
