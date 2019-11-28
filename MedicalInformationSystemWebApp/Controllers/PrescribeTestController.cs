@@ -7,13 +7,15 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MedicalInformationSystemWebApp.Models;
 using MedicalInformationSystemWebApp.Models.CodeFirstModel;
 using Rotativa;
 
 namespace MedicalInformationSystemWebApp.Controllers
 {
     public class PrescribeTestController : Controller
-    {
+    { 
+        PasswordHelper passwordHelper = new PasswordHelper();
         private MedicalInfoSys db = new MedicalInfoSys();
 
         // GET: PrescribeTest
@@ -42,7 +44,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         public ActionResult Create()
         {
             ViewBag.RefferDoctorId = new SelectList(db.DoctorTBs, "DoctorId", "NameED");
-            ViewBag.PatientId = new SelectList(db.PatientTBs, "Id", "Name");
+            ViewBag.PatientId = new SelectList(db.PatientTBs, "Id", "NameED");
             return View();
         }
 
@@ -55,6 +57,8 @@ namespace MedicalInformationSystemWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                prescribeTestTB.Midkit = passwordHelper.AesEncryption(prescribeTestTB.Midkit);
+                prescribeTestTB.TestName = passwordHelper.AesEncryption(prescribeTestTB.TestName);
                 db.PrescribeTestTBs.Add(prescribeTestTB);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -143,22 +147,22 @@ namespace MedicalInformationSystemWebApp.Controllers
             List<string> Midkit = new List<string>();
             foreach (var prescribeTest in pTest)
             {
-                if (prescribeTest.Midkit!=null)
+                if (prescribeTest.MidkitED!=null)
                 {
-                    var mk = prescribeTest.Midkit.Split(',');
+                    var mk = prescribeTest.MidkitED.Split(',');
                     for (int j = 0; j < mk.Length; j++)
                     {
                         Midkit.Add(mk[j].ToString() + "\n");
                     }
                 }
-                var tN = prescribeTest.TestName.Split(',');
+                var tN = prescribeTest.TestNameED.Split(',');
                 
                 for (int i = 0; i < tN.Length; i++)
                 {
                     TestName.Add(tN[i].ToString() + "\n");
                 }
                 
-                ViewBag.Name = prescribeTest.PatientTB.Name;
+                ViewBag.Name = prescribeTest.PatientTB.NameED;
                 ViewBag.Date = DateTime.Now.ToString("yyyy-M-d dddd");
                 ViewBag.Age = prescribeTest.PatientTB.Age;
                 ViewBag.Doctor = prescribeTest.DoctorTB.NameED;

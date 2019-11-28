@@ -15,7 +15,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DoctorTB.Name)
+            @Html.DisplayFor(model => model.DoctorTB.NameED)
         </dd>
 
         <dt>
@@ -23,7 +23,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PatientTB.Name)
+            @Html.DisplayFor(model => model.PatientTB.NameED)
         </dd>
 
         <dt>
@@ -31,7 +31,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TestName)
+            @Html.DisplayFor(model => model.TestNameED)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Midkit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MidkitED)
         </dd>
 
     </dl>

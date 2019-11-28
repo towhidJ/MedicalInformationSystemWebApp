@@ -9,6 +9,7 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
     [Table("PrescribeTestTB")]
     public partial class PrescribeTestTB
     {
+        PasswordHelper passwordHelper = new PasswordHelper();
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PrescribeTestTB()
         {
@@ -22,13 +23,23 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         public int? RefferDoctorId { get; set; }
 
         [DataType(DataType.MultilineText)]
-        [StringLength(200)]
+        [StringLength(300)]
         public string TestName { get; set; }
-
+        [NotMapped]
+        public string TestNameED
+        {
+            get { return passwordHelper.AesDecryption(TestName); }
+            set { }
+        }
         [DataType(DataType.MultilineText)]
         [StringLength(300)]
         public string Midkit { get; set; }
-
+        [NotMapped]
+        public string MidkitED
+        {
+            get { return passwordHelper.AesDecryption(Midkit); }
+            set { }
+        }
         public virtual DoctorTB DoctorTB { get; set; }
 
         public virtual PatientTB PatientTB { get; set; }
