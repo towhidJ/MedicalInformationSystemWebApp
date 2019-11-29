@@ -62,10 +62,11 @@ namespace MedicalInformationSystemWebApp.Controllers
         [AllowAnonymous]
         public JsonResult IsEmailUnique(string Email)
         {
+            var emaile = passwordHelper.AesEncryption(Email);
             bool isAdminValid = db.AdminTBs.Any(x => x.Email==Email );
-            bool isDoctorValid = db.DoctorTBs.Any(x => x.EmailED ==Email);
-            bool isNurseValid = db.NurseTBs.Any(x => x.EmailED ==Email);
-            bool isReceptionValid = db.ReceptionTBs.Any(x => x.EmailED ==Email);
+            bool isDoctorValid = db.DoctorTBs.Any(x => x.Email ==emaile);
+            bool isNurseValid = db.NurseTBs.Any(x => x.Email ==emaile);
+            bool isReceptionValid = db.ReceptionTBs.Any(x => x.Email ==emaile);
 
             if (isAdminValid)
             {
