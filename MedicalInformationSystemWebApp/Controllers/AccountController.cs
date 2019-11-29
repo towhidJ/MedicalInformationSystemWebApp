@@ -63,9 +63,9 @@ namespace MedicalInformationSystemWebApp.Controllers
         public JsonResult IsEmailUnique(string Email)
         {
             bool isAdminValid = db.AdminTBs.Any(x => x.Email==Email );
-            bool isDoctorValid = db.DoctorTBs.Any(x => x.Email ==Email);
-            bool isNurseValid = db.NurseTBs.Any(x => x.Email ==Email);
-            bool isReceptionValid = db.ReceptionTBs.Any(x => x.Email ==Email);
+            bool isDoctorValid = db.DoctorTBs.Any(x => x.EmailED ==Email);
+            bool isNurseValid = db.NurseTBs.Any(x => x.EmailED ==Email);
+            bool isReceptionValid = db.ReceptionTBs.Any(x => x.EmailED ==Email);
 
             if (isAdminValid)
             {

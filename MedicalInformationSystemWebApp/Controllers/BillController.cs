@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MedicalInformationSystemWebApp.Models.CodeFirstModel;
+using Rotativa;
 
 namespace MedicalInformationSystemWebApp.Controllers
 {
@@ -40,7 +41,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         public ActionResult Create(int Id)
         {
             var patient = db.PatientTBs.Where(c => c.Id == Id).Select(c => c);
-            ViewBag.PatientId = new SelectList(patient, "Id", "Name");
+            ViewBag.PatientId = new SelectList(patient, "Id", "NameED");
             return View();
         }
 
@@ -61,7 +62,11 @@ namespace MedicalInformationSystemWebApp.Controllers
                 db.SaveChanges();
                 db.BillTBs.Add(billTB);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                //Get Submite Id//
+                db.Entry(billTB).GetDatabaseValues();
+                int id = billTB.Id;
+                return RedirectToAction("ShowBill", "Bill", new { id = id });
             }
 
             ViewBag.PatientId = new SelectList(db.PatientTBs, "Id", "Name", billTB.PatientId);
@@ -161,6 +166,39 @@ namespace MedicalInformationSystemWebApp.Controllers
                 return billNumber;
             }
 
+
+
+
+
+        }
+
+
+        public ActionResult ShowBill(int id)
+        {
+            var appL = db.BillTBs.Where(c => c.Id == id).Select(c => c);
+            return View(appL);
+        }
+
+        public ActionResult BillSlip(int id)
+        {
+            var appL = db.BillTBs.Where(c => c.Id == id).Select(c => c);
+            foreach (var appLL in appL)
+            {
+                ViewBag.Name = appLL.PatientTB.NameED;
+                ViewBag.BillNo = appLL.BillNo;
+                ViewBag.TestFee = appLL.Testfee;
+                ViewBag.MedicalFee = appLL.MedicalFee;
+                ViewBag.Age = appLL.PatientTB.Age;
+                ViewBag.DoctorFee = appLL.DoctorFee;
+                ViewBag.TotalAmmount = appLL.TotalAmmount;
+                ViewBag.Doctor = appLL.PatientTB.DoctorTB.NameED;
+            }
+            return View(appL);
+        }
+
+        public ActionResult Print(int id)
+        {
+            return new ActionAsPdf("BillSlip", new { id = id });
         }
     }
 }
