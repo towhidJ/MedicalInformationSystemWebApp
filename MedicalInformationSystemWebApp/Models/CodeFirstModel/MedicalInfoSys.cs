@@ -61,10 +61,6 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
                 .Property(e => e.BillNo)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<BillTB>()
-                .HasOptional(e => e.BillTB1)
-                .WithRequired(e => e.BillTB2);
-
             modelBuilder.Entity<DepartmentTB>()
                 .Property(e => e.DepartmentName)
                 .IsUnicode(false);

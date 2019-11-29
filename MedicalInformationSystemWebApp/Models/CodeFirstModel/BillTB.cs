@@ -21,15 +21,9 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
 
         public double MedicalFee { get; set; }
 
-        public double MedicineFee { get; set; }
-
         public double? Testfee { get; set; }
 
         public double TotalAmmount { get; set; }
-
-        public virtual BillTB BillTB1 { get; set; }
-
-        public virtual BillTB BillTB2 { get; set; }
 
         public virtual PatientTB PatientTB { get; set; }
     }
