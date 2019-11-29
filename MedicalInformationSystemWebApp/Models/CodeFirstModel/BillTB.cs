@@ -13,17 +13,16 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
 
         public int PatientId { get; set; }
 
-        [Required]
-        [StringLength(50)]
+        [StringLength(300)]
         public string BillNo { get; set; }
 
-        public double DoctorFee { get; set; }
+        public int DoctorFee { get; set; }
 
-        public double MedicalFee { get; set; }
+        public int MedicalFee { get; set; }
 
-        public double? Testfee { get; set; }
+        public int? Testfee { get; set; }
 
-        public double TotalAmmount { get; set; }
+        public int TotalAmmount { get; set; }
 
         public virtual PatientTB PatientTB { get; set; }
     }

@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using MedicalInformationSystemWebApp.Models;
@@ -19,7 +20,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         // GET: Patient
         public ActionResult Index()
         {
-            var patientTBs = db.PatientTBs.Include(p => p.SeatTB).Include(p => p.WardTB).Include(p=>p.DoctorTB).Include(p=>p.NurseTB);
+            var patientTBs = db.PatientTBs.Where(c=>c.Action==1).Include(p => p.SeatTB).Include(p => p.WardTB).Include(p=>p.DoctorTB).Include(p=>p.NurseTB);
             return View(patientTBs.ToList());
         }
 
@@ -254,6 +255,24 @@ namespace MedicalInformationSystemWebApp.Controllers
                 return Json(0);
             }
             return Json(1);
+        }
+
+        public JsonResult bill(int patientId)
+        {
+            BillTB bill = new BillTB();
+            List<BillTB>bills = new List<BillTB>();
+
+            DateTime d = db.PatientTBs.Single(c => c.Id == patientId && c.Action == 1).AdmitDate.Date;
+            DateTime toDay = DateTime.Now.Date;
+            var day = (toDay-d).TotalDays;
+            bill.DoctorFee = (int) (day*300);
+            bill.MedicalFee = (int) (day * 400);
+            bill.Testfee = (int)db.TestTBs.Single(c =>
+                c.PrescribeTestTB.PatientTB.Id == patientId && c.PrescribeTestTB.PatientTB.Action == 1).TestFee;
+
+            bill.TotalAmmount = (int) bill.Testfee+bill.DoctorFee+bill.MedicalFee;
+            bills.Add(bill);
+            return Json(bills);
         }
     }
 }

@@ -133,6 +133,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
+    <Compile Include="Controllers\BillController.cs" />
     <Compile Include="Controllers\DeshboardController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -955,6 +956,11 @@
     <Content Include="Views\TestTBs\TestRecipt.cshtml" />
     <Content Include="Views\TestRepaort\TestResult.cshtml" />
     <Content Include="Views\Deshboard\Chart.cshtml" />
+    <Content Include="Views\Bill\Create.cshtml" />
+    <Content Include="Views\Bill\Delete.cshtml" />
+    <Content Include="Views\Bill\Details.cshtml" />
+    <Content Include="Views\Bill\Edit.cshtml" />
+    <Content Include="Views\Bill\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

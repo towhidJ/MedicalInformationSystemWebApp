@@ -60,6 +60,8 @@
                     <a class="btn btn-primary" href="@Url.Action("Edit", "Patient", new {id = item.Id})"><i class="far fa-edit"></i></a>
                     <a class="btn btn-success" href="@Url.Action("Details", "Patient", new {id = item.Id})"><i class="fas fa-list-ul"></i></a>
                     <a class="btn btn-danger" href="@Url.Action("Delete", "Patient", new {id = item.Id})"><i class="fas fa-trash-alt"></i></a>
+                    <a class="btn btn-danger" href="@Url.Action("Create", "Bill", new {id = item.Id})"><i class="fas fa-door-open"></i></a>
+
                 </div>
             </td>
         </tr>

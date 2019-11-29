@@ -75,6 +75,7 @@ namespace MedicalInformationSystemWebApp.Models.CodeFirstModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BillTB> BillTBs { get; set; }
 
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PatientReport> PatientReports { get; set; }
 

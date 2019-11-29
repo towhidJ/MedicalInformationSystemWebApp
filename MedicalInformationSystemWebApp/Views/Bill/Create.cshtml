@@ -1,0 +1,109 @@
+﻿@model MedicalInformationSystemWebApp.Models.CodeFirstModel.BillTB
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<form method="post" class="form-design animated lightSpeedIn" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div class="p-4 rounded border">
+
+        <div class="form-horizontal">
+            <h4 class="text-center text-info">Patient Checkout</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.PatientId, "PatientId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("PatientId", null, "--Select--", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DoctorFee, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DoctorFee, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DoctorFee, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MedicalFee, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MedicalFee, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MedicalFee, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Testfee, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Testfee, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Testfee, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TotalAmmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TotalAmmount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TotalAmmount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section scripts
+{
+    <script>
+        $(function () {
+
+            //$("#Testfee").prop('disabled', true);
+            //$("#TotalAmmount").prop('disabled', true);
+            //$("#DoctorFee").prop('disabled', true);
+            //$("#MedicalFee").prop('disabled', true);
+
+            $('#PatientId').on('change',
+                function () {
+                    var pId = $('#PatientId').val();
+                    var json = {
+                        patientId: pId
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("bill", "Patient")',
+                        contentType: 'application/json',
+                        data: JSON.stringify(json),
+
+                        success: function (data) {
+
+                            $.each(data,
+                                function (key, value) {
+
+                                    $('#Testfee').val(value.Testfee);
+                                    $('#TotalAmmount').val(value.TotalAmmount);
+                                    $('#DoctorFee').val(value.DoctorFee);
+                                    $('#MedicalFee').val(value.MedicalFee);
+
+                                });
+                        }
+                    });
+                });
+
+
+        });
+    </script>
+}

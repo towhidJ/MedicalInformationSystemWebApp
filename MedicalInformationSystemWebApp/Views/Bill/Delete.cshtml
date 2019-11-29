@@ -1,0 +1,72 @@
+﻿@model MedicalInformationSystemWebApp.Models.CodeFirstModel.BillTB
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>BillTB</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientTB.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientTB.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DoctorFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DoctorFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicalFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicalFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Testfee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Testfee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalAmmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalAmmount)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,66 @@
+﻿@model MedicalInformationSystemWebApp.Models.CodeFirstModel.BillTB
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BillTB</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientTB.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientTB.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DoctorFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DoctorFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicalFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicalFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Testfee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Testfee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalAmmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalAmmount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
