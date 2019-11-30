@@ -30,8 +30,8 @@ namespace MedicalInformationSystemWebApp.Controllers
                     
                     bool isAdminValid = context.AdminTBs.AsEnumerable().Any(x => x.Email == model.Email && passwordHelper.Decode(x.Password) == model.Password);
                     bool isDoctorValid = context.DoctorTBs.AsEnumerable().Any(x => x.EmailED == model.Email && passwordHelper.Decode(x.Password) == model.Password);
-                    bool isNurseValid = context.NurseTBs.AsEnumerable().Any(x => x.Email == model.Email && passwordHelper.Decode(x.Password) == model.Password);
-                    bool isReceptionValid = context.ReceptionTBs.AsEnumerable().Any(x => x.Email == model.Email && passwordHelper.Decode(x.Password) == model.Password);
+                    bool isNurseValid = context.NurseTBs.AsEnumerable().Any(x => x.EmailED == model.Email && passwordHelper.Decode(x.Password) == model.Password);
+                    bool isReceptionValid = context.ReceptionTBs.AsEnumerable().Any(x => x.EmailED == model.Email && passwordHelper.Decode(x.Password) == model.Password);
                 if (isAdminValid)
                     {
                         FormsAuthentication.SetAuthCookie(model.Email, false);

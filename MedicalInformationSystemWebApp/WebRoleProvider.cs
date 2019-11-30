@@ -60,19 +60,19 @@ namespace MedicalInformationSystemWebApp
                         select roleTB.Role).ToArray();
                     return DoctorResult;
                 }
-                if (context.NurseTBs.Any(x => x.Email == username))
+                if (context.NurseTBs.Any(x => x.Email == userN))
                 {
                     var NurseResult = (from roleTB in context.RoleTBs
                         join nurseTB in context.NurseTBs on roleTB.Id equals nurseTB.RoleId
-                        where nurseTB.Email == username
+                        where nurseTB.Email == userN
                         select roleTB.Role).ToArray();
                     return NurseResult;
                 }
-                if (context.ReceptionTBs.Any(x => x.Email == username))
+                if (context.ReceptionTBs.Any(x => x.Email == userN))
                 {
                     var ReceptionResult = (from roleTB in context.RoleTBs
                         join receptionTB in context.ReceptionTBs on roleTB.Id equals receptionTB.RoleId
-                        where receptionTB.Email == username
+                        where receptionTB.Email == userN
                         select roleTB.Role).ToArray();
                     return ReceptionResult;
                 }
