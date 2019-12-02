@@ -3,8 +3,8 @@
 @{
     ViewBag.Title = "Index";
 }
-<br/>
-<br/>
+<br />
+<br />
 <div class="row">
     <div class="col-6">
         <h2 class="text-info">Nurse List</h2>
@@ -67,3 +67,24 @@
     }
 
 </table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var save = '@TempData["save"]';
+            if (save != "") {
+                alertify.success(save);
+            }
+            var update = '@TempData["update"]';
+            if (update != "") {
+                alertify.success(update);
+            }
+            var del = '@TempData["delete"]';
+            if (del!= "") {
+                alertify.error(del);
+            }
+        });
+    </script>
+}

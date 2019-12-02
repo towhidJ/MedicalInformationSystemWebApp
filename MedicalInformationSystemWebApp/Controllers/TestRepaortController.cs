@@ -18,6 +18,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         private MedicalInfoSys db = new MedicalInfoSys();
 
         // GET: TestRepaort
+        [Authorize(Roles = "Reception,Doctor")]
         public ActionResult Index()
         {
             var testRepaortTBs = db.TestRepaortTBs.Include(t => t.TestTB);
@@ -40,6 +41,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         }
 
         // GET: TestRepaort/Create
+        [Authorize(Roles = "Reception,Doctor")]
         public ActionResult Create()
         {
             ViewBag.TestId = new SelectList(db.TestTBs, "Id", "Id");
@@ -135,10 +137,14 @@ namespace MedicalInformationSystemWebApp.Controllers
 
         public JsonResult GetTestReportInfoByPtId(int testId)
         {
+            var te = db.TestTBs.Single(c => c.Id == testId).PrescribeTestTB.TestName;
+            var na = db.TestTBs.Single(c => c.Id == testId).PrescribeTestTB.PatientTB.Name;
+            te = passwordHelper.AesDecryption(te);
+            na = passwordHelper.AesDecryption(na);
             var TestInfo = db.TestTBs.Where(c => c.Id == testId)
                 .Select(c => new
                 {
-                    name = c.PrescribeTestTB.PatientTB.Name, testName = c.PrescribeTestTB.TestName.ToString()
+                    name = na, testName = te.ToString()
 
                 });
             return Json(TestInfo);

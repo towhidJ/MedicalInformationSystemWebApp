@@ -15,6 +15,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         private MedicalInfoSys db = new MedicalInfoSys();
 
         // GET: Staff
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var staffTBs = db.StaffTBs.Include(s => s.RoleTB);
@@ -37,6 +38,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         }
 
         // GET: Staff/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.RoleId = new SelectList(db.RoleTBs, "Id", "Role");

@@ -11,6 +11,7 @@
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/sweetalert2/Animation.css" rel="stylesheet" />
     <link href="~/Content/CustomCss/global.css" rel="stylesheet" />
+    <link href="~/Content/alertifyjs/alertify.css" rel="stylesheet" />
     @*<script src="https://kit.fontawesome.com/38501fe14e.js"></script>*@
     <script src="~/Scripts/fontawasome.js"></script>
     <link href="~/Content/CustomCss/_Layout.css" rel="stylesheet" />
@@ -19,7 +20,7 @@
     @*<link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">*@
     @RenderSection("Style", required: false)
 </head>
-<body >
+<body>
 
     <header>
 
@@ -44,6 +45,9 @@
                         </li>
                         if (User.IsInRole("Admin"))
                         {
+                            <li class="nav-item">
+                                <a href="@Url.Action("Chart", "Deshboard")" class="nav-link">Chart</a>
+                            </li>
                             <li class="nav-item">
                                 <a href="@Url.Action("Index", "Appointment")" class="nav-link">Appointment</a>
                             </li>
@@ -74,6 +78,9 @@
                             <li class=" nav-item">
                                 <a href="@Url.Action("Create", "PrescribeTest")" class="nav-link">Prescribe Test</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "TestRepaort")" class="nav-link">Test Report</a>
+                            </li>
                             <li class=" nav-item">
                                 <a href="@Url.Action("Logout", "Account")" class="nav-link">Logout</a>
                             </li>
@@ -86,6 +93,18 @@
                         }
                         else if (User.IsInRole("Reception"))
                         {
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "Appointment")" class="nav-link">Appointment</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "Patient")" class="nav-link">Patient</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "TestTBs")" class="nav-link">Test</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "TestRepaort")" class="nav-link">Test Report</a>
+                            </li>
                             <li class=" nav-item">
                                 <a href="@Url.Action("Logout", "Account")" class="nav-link">Logout</a>
                             </li>
@@ -107,10 +126,10 @@
                 </ul>
 
                 @*<form class=" form-inline my-2 my-lg-0">
-                    <button class=" btn menu-right-btn border" type="submit">
-                        Hello
-                    </button>
-                </form>*@
+                        <button class=" btn menu-right-btn border" type="submit">
+                            Hello
+                        </button>
+                    </form>*@
             </div>
 
         </nav>
@@ -119,23 +138,24 @@
     <div class="container body-content">
         @RenderBody()
         <footer>
-           
+
             <div class="section-5 text-center">
                 <hr>
 
-            <h5 style="color: lightseagreen">Team-71 &copy;</h5>
+                <h5 style="color: lightseagreen">Team-71 &copy;</h5>
             </div>
 
         </footer>
     </div>
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/jqueryval")
-<script src="~/Scripts/bootstrap.min.js"></script>
-<script src="~/Content/HomePage/Js&CSS/popper.min.js"></script>
-@Scripts.Render("~/bundles/bootstrap")
-@Scripts.Render("~/bundles/jqueryDataTables")
-@RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/alertify.js"></script>
+    <script src="~/Content/HomePage/Js&CSS/popper.min.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryDataTables")
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>

@@ -54,13 +54,13 @@
                 @*@Html.DisplayFor(modelItem => item.ImagePath)*@
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.NameED)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address)
+                @Html.DisplayFor(modelItem => item.AddressED)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Phone)
+                @Html.DisplayFor(modelItem => item.PhoneED)
             </td>
 
             <td>
@@ -71,7 +71,7 @@
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.EmailED)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Joined)
@@ -87,3 +87,24 @@
     }
 
 </table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var save = '@TempData["save"]';
+            if (save != "") {
+                alertify.success(save);
+            }
+            var update = '@TempData["update"]';
+            if (update != "") {
+                alertify.success(update);
+            }
+            var del = '@TempData["delete"]';
+            if (del!= "") {
+                alertify.error(del);
+            }
+        });
+    </script>
+}

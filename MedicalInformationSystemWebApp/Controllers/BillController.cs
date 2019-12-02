@@ -16,6 +16,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         private MedicalInfoSys db = new MedicalInfoSys();
 
         // GET: Bill
+        [Authorize(Roles = "Admin, Reception")]
         public ActionResult Index()
         {
             var billTBs = db.BillTBs.Include(b => b.PatientTB);
@@ -38,6 +39,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         }
 
         // GET: Bill/Create
+        [Authorize(Roles = "Reception")]
         public ActionResult Create(int Id)
         {
             var patient = db.PatientTBs.Where(c => c.Id == Id).Select(c => c);

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MedicalInformationSystemWebApp.Models;
 using MedicalInformationSystemWebApp.Models.CodeFirstModel;
 using Rotativa;
 
@@ -16,6 +17,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         private MedicalInfoSys db = new MedicalInfoSys();
 
         // GET: TestTBs
+        [Authorize(Roles = "Reception")]
         public ActionResult Index()
         {
             var testTBs = db.TestTBs.Include(t => t.PrescribeTestTB);
@@ -38,6 +40,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         }
 
         // GET: TestTBs/Create
+        [Authorize(Roles = "Reception")]
         public ActionResult Create()
         {
             //var patient = db.PrescribeTestTBs.Select(c => new { c.PatientId, c.PatientTB.Name });
@@ -138,8 +141,14 @@ namespace MedicalInformationSystemWebApp.Controllers
 
         public JsonResult GetTestInfoByPtId(int prescribeTestId)
         {
+            PasswordHelper passwordHelper = new PasswordHelper();
+            var te = db.PrescribeTestTBs.Single(c => c.Id == prescribeTestId).TestName;
+            var na = db.PrescribeTestTBs.Single(c => c.Id == prescribeTestId).PatientTB.Name;
+            te = passwordHelper.AesDecryption(te);
+            na = passwordHelper.AesDecryption(na);
+
             var TestInfo = db.PrescribeTestTBs.Where(c => c.Id == prescribeTestId  && c.TestName!=null)
-                .Select(c => new {name = c.PatientTB.Name, testName = c.TestName.ToString()});
+                .Select(c => new {name = na, testName = te});
 
             return Json(TestInfo);
         }

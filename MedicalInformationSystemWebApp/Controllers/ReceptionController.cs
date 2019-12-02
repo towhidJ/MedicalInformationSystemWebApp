@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MedicalInformationSystemWebApp.Models;
 using MedicalInformationSystemWebApp.Models.CodeFirstModel;
 
 namespace MedicalInformationSystemWebApp.Controllers
@@ -13,8 +14,10 @@ namespace MedicalInformationSystemWebApp.Controllers
     public class ReceptionController : Controller
     {
         private MedicalInfoSys db = new MedicalInfoSys();
+        PasswordHelper passwordHelper = new PasswordHelper();
 
         // GET: Reception
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var receptionTBs = db.ReceptionTBs.Include(r => r.RoleTB);
@@ -37,6 +40,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         }
 
         // GET: Reception/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.RoleId = new SelectList(db.RoleTBs, "Id", "Role");
@@ -54,9 +58,14 @@ namespace MedicalInformationSystemWebApp.Controllers
             int random = r.Next();
             if (ModelState.IsValid)
             {
+                receptionTB.Name = passwordHelper.AesEncryption(receptionTB.Name);
+                receptionTB.Email = passwordHelper.AesEncryption(receptionTB.Email);
+                receptionTB.Address = passwordHelper.AesEncryption(receptionTB.Address);
+                receptionTB.Phone = passwordHelper.AesEncryption(receptionTB.Phone);
+                receptionTB.Password = passwordHelper.Encode(receptionTB.Password);
                 if (UploadImage != null)
                 {
-
+                    
                     if (UploadImage.ContentType == "image/jpg" || UploadImage.ContentType == "image/png" ||
                         UploadImage.ContentType == "image/jpeg")
                     {
@@ -74,6 +83,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                     receptionTB.ImagePath = "profile.png";
                 }
                 db.ReceptionTBs.Add(receptionTB);
+                TempData["save"] = "Save Successfull";
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -139,7 +149,12 @@ namespace MedicalInformationSystemWebApp.Controllers
                     }
                     receptionTB.ImagePath = img;
                 }
+                if (receptionTB.Name.Length < 15)
+                {
+                    receptionTB.Name = passwordHelper.AesEncryption(receptionTB.Name);
+                }
                 db.Entry(receptionTB).State = EntityState.Modified;
+                TempData["update"] = "Update Successfull";
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -169,6 +184,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         {
             ReceptionTB receptionTB = db.ReceptionTBs.Find(id);
             db.ReceptionTBs.Remove(receptionTB);
+            TempData["delete"] = "Remove Successfull";
             db.SaveChanges();
             return RedirectToAction("Index");
         }

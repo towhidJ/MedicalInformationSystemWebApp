@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using MedicalInformationSystemWebApp.Models;
 using MedicalInformationSystemWebApp.Models.CodeFirstModel;
+using Microsoft.Ajax.Utilities;
 
 namespace MedicalInformationSystemWebApp.Controllers
 {
@@ -18,6 +19,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         PasswordHelper passwordHelper = new PasswordHelper();
 
         // GET: Patient
+        [Authorize(Roles = "Admin,Reception")]
         public ActionResult Index()
         {
             var patientTBs = db.PatientTBs.Where(c=>c.Action==1).Include(p => p.SeatTB).Include(p => p.WardTB).Include(p=>p.DoctorTB).Include(p=>p.NurseTB);
@@ -40,6 +42,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         }
 
         // GET: Patient/Create
+        [Authorize(Roles = "Reception")]
         public ActionResult Create()
         {
             ViewBag.SeatId = new SelectList(db.SeatTBs, "Id", "seat");
@@ -97,6 +100,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                 patientTB.Address = passwordHelper.AesEncryption(patientTB.Address);
                 patientTB.Problem = passwordHelper.AesEncryption(patientTB.Problem);
                 db.PatientTBs.Add(patientTB);
+                TempData["save"] = "Save Successfull";
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -188,6 +192,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                 sWardTb.AvailableSeat = avSeat;
                 db.SaveChanges();
                 db.Entry(patientTB).State = EntityState.Modified;
+                TempData["update"] = "Update Successfull";
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -220,6 +225,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         {
             PatientTB patientTB = db.PatientTBs.Find(id);
             db.PatientTBs.Remove(patientTB);
+            TempData["delete"] = "Remove Successfull";
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -264,7 +270,7 @@ namespace MedicalInformationSystemWebApp.Controllers
 
             DateTime d = db.PatientTBs.Single(c => c.Id == patientId && c.Action == 1).AdmitDate.Date;
             DateTime toDay = DateTime.Now.Date;
-            var day = (toDay-d).TotalDays;
+            var day = (toDay-d).TotalDays+1;
             bill.DoctorFee = (int) (day*300);
             bill.MedicalFee = (int) (day * 400);
             bill.Testfee = (int)db.TestTBs.Single(c =>

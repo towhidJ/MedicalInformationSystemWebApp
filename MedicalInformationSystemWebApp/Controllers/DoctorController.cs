@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -19,6 +20,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         PasswordHelper passwordHelper = new PasswordHelper();
 
         // GET: Doctor
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var doctorTBs = db.DoctorTBs.Include(d => d.DepartmentTB).Include(d => d.DesignationTB).Include(d => d.RoleTB).Include(d => d.SpealizationTB);
@@ -89,6 +91,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                 //    return View(doctorTB);
                 doctorTB.Password = passwordHelper.Encode(doctorTB.Password);
                 db.DoctorTBs.Add(doctorTB);
+                TempData["save"] = "Save Successfull";
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -203,6 +206,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                     doctorTB.Name = passwordHelper.AesEncryption(doctorTB.Name);
                 }
                 db.Entry(doctorTB).State = EntityState.Modified;
+                TempData["update"] = "Update Successfull";
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -236,6 +240,7 @@ namespace MedicalInformationSystemWebApp.Controllers
             DoctorTB doctorTB = db.DoctorTBs.Find(id);
             db.DoctorTBs.Remove(doctorTB);
             db.SaveChanges();
+            TempData["delete"] = "Remove Successfull";
             return RedirectToAction("Index");
         }
 
@@ -260,18 +265,23 @@ namespace MedicalInformationSystemWebApp.Controllers
         {
             ViewBag.DepartmentId = new SelectList(db.DepartmentTBs, "Id", "DepartmentName");
             //var df = new List<DoctorTB>();
-            var na = db.DoctorTBs.Single(c => c.DepartmentId == departmentId).Name.ToString();
+            var na = db.DoctorTBs.Single(c => c.DepartmentId == departmentId).Name;
+
             na = passwordHelper.AesDecryption(na);
-            var GetAllDoctor = from dc in db.DoctorTBs
-                               where dc.DepartmentId == departmentId
-                               select new
-                               {
-                                   Img = dc.ImagePath.ToString(),
-                                   Name = na,
-                                   Start = dc.VisitingTimeStart.ToString(),
-                                   End = dc.VisitingTimeEnd.ToString(),
-                                   dc.VisitDay,
-                               };
+
+            var GetAllDoctor = 
+                from dc in db.DoctorTBs
+                where dc.DepartmentId == departmentId
+                select new
+                {
+                    Img = dc.ImagePath.ToString(),
+                    designation = dc.DesignationTB.DesignationName.ToString(),
+                    Name = na,
+                    Start = dc.VisitingTimeStart.ToString(),
+                    End = dc.VisitingTimeEnd.ToString(),
+                    dc.VisitDay,
+                };
+
             //var GetAllDoctor =
             //    db.DoctorTBs.Where(c => c.DepartmentId == departmentId).Select(c => c.Name);
             //foreach (var dn in GetAllDoctor)

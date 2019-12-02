@@ -16,6 +16,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         private MedicalInfoSys db = new MedicalInfoSys();
 
         // GET: Appointment
+        [Authorize]
         public ActionResult Index()
         {
             var appointmentTBs = db.AppointmentTBs.Include(a => a.DoctorTB);
@@ -23,6 +24,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         }
 
         // GET: Appointment/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -38,6 +40,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         }
 
         // GET: Appointment/Create
+        [AllowAnonymous]
         public ActionResult Create()
         {
             ViewBag.DoctorId = new SelectList(db.DoctorTBs, "DoctorId", "NameED");
@@ -56,6 +59,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                 appointmentTB.AppointmentNumber=AppointMentNumber(appointmentTB.DoctorId, appointmentTB.AppointmentDate);
                 appointmentTB.AppointmentFee = 500.00;
                 db.AppointmentTBs.Add(appointmentTB);
+                TempData["save"] = "Save Successfull";
                 db.SaveChanges();
 
                 //Get Submite Id//

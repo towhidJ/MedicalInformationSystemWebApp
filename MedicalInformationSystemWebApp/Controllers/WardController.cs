@@ -17,6 +17,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         PasswordHelper passwordHelper = new PasswordHelper();
 
         // GET: Ward
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var wardTBs = db.WardTBs.Include(w => w.DepartmentTB);
@@ -39,6 +40,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         }
 
         // GET: Ward/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.DepartmentId = new SelectList(db.DepartmentTBs, "Id", "DepartmentName");

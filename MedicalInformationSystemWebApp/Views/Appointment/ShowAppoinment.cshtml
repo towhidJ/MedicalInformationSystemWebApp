@@ -18,7 +18,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DoctorTB.Name)
+            @Html.DisplayName("Doctor Name")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -39,7 +39,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.DoctorTB.Name)
+                @Html.DisplayFor(modelItem => item.DoctorTB.NameED)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -60,3 +60,24 @@
     }
 
 </table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var save = '@TempData["save"]';
+            if (save != "") {
+                alertify.success(save);
+            }
+            var update = '@TempData["update"]';
+            if (update != "") {
+                alertify.success(update);
+            }
+            var del = '@TempData["delete"]';
+            if (del!= "") {
+                alertify.error(del);
+            }
+        });
+    </script>
+}

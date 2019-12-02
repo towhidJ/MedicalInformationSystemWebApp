@@ -18,6 +18,7 @@ namespace MedicalInformationSystemWebApp.Controllers
 
         PasswordHelper passwordHelper = new PasswordHelper();
         // GET: Nurse
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             //var t = db.NurseTBs.Where(
@@ -43,6 +44,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         }
 
         // GET: Nurse/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.RoleId = new SelectList(db.RoleTBs, "Id", "Role");
@@ -89,6 +91,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                 
                 nurseTB.Password = passwordHelper.Encode(nurseTB.Password);
                 db.NurseTBs.Add(nurseTB);
+                TempData["save"] = "Save Successfull";
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -175,6 +178,7 @@ namespace MedicalInformationSystemWebApp.Controllers
                     nurseTB.Name = passwordHelper.AesEncryption(nurseTB.Name);
                 }
                 db.Entry(nurseTB).State = EntityState.Modified;
+                TempData["update"] = "Update Successfull";
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -204,6 +208,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         {
             NurseTB nurseTB = db.NurseTBs.Find(id);
             db.NurseTBs.Remove(nurseTB);
+            TempData["delete"] = "Remove Successfull";
             db.SaveChanges();
             return RedirectToAction("Index");
         }

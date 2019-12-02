@@ -43,6 +43,9 @@
                         if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
+                                <a href="@Url.Action("Chart", "Deshboard")" class="nav-link">Chart</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="@Url.Action("Index", "Appointment")" class="nav-link">Appointment</a>
                             </li>
                             <li class="nav-item">
@@ -66,12 +69,14 @@
                             <li class=" nav-item">
                                 <a href="@Url.Action("Logout", "Account")" class="nav-link">Logout</a>
                             </li>
-                            
                         }
                         else if (User.IsInRole("Doctor"))
                         {
                             <li class=" nav-item">
                                 <a href="@Url.Action("Create", "PrescribeTest")" class="nav-link">Prescribe Test</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "TestRepaort")" class="nav-link">Test Report</a>
                             </li>
                             <li class=" nav-item">
                                 <a href="@Url.Action("Logout", "Account")" class="nav-link">Logout</a>
@@ -85,6 +90,18 @@
                         }
                         else if (User.IsInRole("Reception"))
                         {
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "Appointment")" class="nav-link">Appointment</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "Patient")" class="nav-link">Patient</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "TestTBs")" class="nav-link">Test</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "TestRepaort")" class="nav-link">Test Report</a>
+                            </li>
                             <li class=" nav-item">
                                 <a href="@Url.Action("Logout", "Account")" class="nav-link">Logout</a>
                             </li>
@@ -98,8 +115,9 @@
                         <li class=" nav-item">
                             <a href="@Url.Action("Contact", "Home")" class="nav-link">ContactUs</a>
                         </li>
-                        <a href="@Url.Action("Login", "Account")" class="nav-link">Login</a>
-
+                        <li class=" nav-item">
+                            <a href="@Url.Action("Login", "Account")" class="nav-link">Login</a>
+                        </li>
                     }
 
                 </ul>

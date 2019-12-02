@@ -19,6 +19,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         private MedicalInfoSys db = new MedicalInfoSys();
 
         // GET: PrescribeTest
+        [Authorize(Roles = "Doctor")]
         public ActionResult Index()
         {
             var prescribeTestTBs = db.PrescribeTestTBs.Include(p => p.DoctorTB).Include(p => p.PatientTB);
@@ -41,6 +42,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         }
 
         // GET: PrescribeTest/Create
+        [Authorize(Roles = "Doctor")]
         public ActionResult Create()
         {
             ViewBag.RefferDoctorId = new SelectList(db.DoctorTBs, "DoctorId", "NameED");

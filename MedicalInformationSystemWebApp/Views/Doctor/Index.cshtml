@@ -95,9 +95,20 @@
 @section scripts
 {
     <script>
-        $(document).ready(function () {
+        $(function() {
             $("#doctorTable").DataTable();
-        });
+            var save = '@TempData["save"]';
+            if (save != "") {
+                alertify.success(save);
+            }
+            var update = '@TempData["update"]';
+            if (update != "") {
+                alertify.success(update);
+            }
+            var del = '@TempData["delete"]';
+            if (del != "") {
+                alertify.error(del);
+            }
+        })
     </script>
-
 }

@@ -18,6 +18,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         private MedicalInfoSys db = new MedicalInfoSys();
         private AesManaged aes = new AesManaged();
         // GET: Seat
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var seatTBs = db.SeatTBs.Include(s => s.WardTB);
@@ -40,6 +41,7 @@ namespace MedicalInformationSystemWebApp.Controllers
         }
 
         // GET: Seat/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.WardId = new SelectList(db.WardTBs, "Id", "wwardno");
