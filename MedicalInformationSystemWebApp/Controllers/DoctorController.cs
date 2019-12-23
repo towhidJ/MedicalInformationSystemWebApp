@@ -265,23 +265,43 @@ namespace MedicalInformationSystemWebApp.Controllers
         {
             ViewBag.DepartmentId = new SelectList(db.DepartmentTBs, "Id", "DepartmentName");
             //var df = new List<DoctorTB>();
-            var na = db.DoctorTBs.Single(c => c.DepartmentId == departmentId).Name;
+            //var na = db.DoctorTBs.Single(c => c.DepartmentId == departmentId).Name;
 
-            na = passwordHelper.AesDecryption(na);
+            //na = passwordHelper.AesDecryption(na);
 
-            var GetAllDoctor = 
-                from dc in db.DoctorTBs
-                where dc.DepartmentId == departmentId
-                select new
-                {
-                    Img = dc.ImagePath.ToString(),
-                    designation = dc.DesignationTB.DesignationName.ToString(),
-                    Name = na,
-                    Start = dc.VisitingTimeStart.ToString(),
-                    End = dc.VisitingTimeEnd.ToString(),
-                    dc.VisitDay,
-                };
+            //var GetAllDoctor = 
+            //    from dc in db.DoctorTBs
+            //    where dc.DepartmentId == departmentId
+            //    select new
+            //    {
+            //        Img = dc.ImagePath.ToString(),
+            //        designation = dc.DesignationTB.DesignationName.ToString(),
+            //        Name = na,
+            //        Start = dc.VisitingTimeStart.ToString(),
+            //        End = dc.VisitingTimeEnd.ToString(),
+            //        dc.VisitDay,
+            //    };
 
+            var GetAllDoctor = db.DoctorTBs.Where(c => c.DepartmentId == departmentId).Distinct();
+
+            List<DoctorTB> GetDoc = new List<DoctorTB>();
+
+            foreach (var doc in GetAllDoctor)
+            {
+                
+                DoctorTB dd = new DoctorTB(); 
+                dd.Name = doc.Name;
+                dd.Phone = doc.Phone;
+                dd.Email = doc.Email;
+                dd.Address = doc.Address;
+                dd.Dob = doc.Dob;
+                dd.ImagePath = doc.ImagePath;
+                dd.VisitingTimeStart = doc.VisitingTimeStart;
+                dd.VisitingTimeEnd = doc.VisitingTimeEnd;
+                dd.VisitDay = doc.VisitDay;
+                dd.DesignationId = doc.DesignationId;
+                GetDoc.Add(dd);
+            }
             //var GetAllDoctor =
             //    db.DoctorTBs.Where(c => c.DepartmentId == departmentId).Select(c => c.Name);
             //foreach (var dn in GetAllDoctor)
@@ -289,7 +309,7 @@ namespace MedicalInformationSystemWebApp.Controllers
 
             //   df.Add(dn);
             //}
-            return Json(GetAllDoctor);
+            return Json(GetDoc);
         }
     }
 }

@@ -65,7 +65,9 @@
                             $.each(data,
                                 function (key, value) {
 
-                                    $("#doctorList").append('<tr><td></td><td>' +'Dr. '+ value.Name+'<br/>'+value.designation + '</td><td>' + value.Start +'-'+value.End +'</td><td>' + value.VisitDay + '</td></tr>');
+                                    //$("#doctorList").append('<tr><td></td><td>' +'Dr. '+ value.Name+'<br/>'+value.designation + '</td><td>' + value.VisitingTimeStart +'-'+value.VisitingTimeEnd +'</td><td>' + value.VisitDay + '</td></tr>');
+                                    $("#doctorList").append('<tr><td></td><td>' +'Dr. '+ value.NameED+ '</td><td>' + value.VisitingTimeStart +'-'+value.VisitingTimeEnd +'</td><td>' + value.VisitDay + '</td></tr>');
+
 
                                 });
                         }

@@ -23,7 +23,7 @@
 
 
 
-        <canvas class="text-center" id="myChart" width="400" height="400"></canvas>
+        <canvas class="text-center bg-light" id="myChart" width="150" height="60"></canvas>
         <script>
             var rep = @Html.Raw(Json.Encode(ViewBag.Rep));
             var appch = @Html.Raw(Json.Encode(ViewBag.AppCh));
@@ -37,18 +37,18 @@
                     label: 'Patient',
                     data: rep,
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)'
+                        'rgba(244, 67, 54, 10)',
+                        'rgba(244, 67, 54, 10)',
+                        'rgba(244, 67, 54, 12)',
+                        'rgba(244, 67, 54, 10)',
+                        'rgba(244, 67, 54, 10)',
+                        'rgba(244, 67, 54, 10)',
+                        'rgba(244, 67, 54, 10)',
+                        'rgba(244, 67, 54, 12)',
+                        'rgba(244, 67, 54, 10)',
+                        'rgba(244, 67, 54, 10)',
+                        'rgba(244, 67, 54, 10)',
+                        'rgba(244, 67, 54, 10)'
                     ],
                     borderColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -69,18 +69,18 @@
                     label: 'Appointment',
                     data: appch,
                     backgroundColor: [
-                    'rgba(255, 205, 86, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(255, 206, 86, 0.2)'
+                        'rgba(194, 24, 91, 10)',
+                        'rgba(194, 24, 91, 10)',
+                        'rgba(194, 24, 91, 10)',
+                        'rgba(194, 24, 91, 10)',
+                        'rgba(194, 24, 91, 10)',
+                        'rgba(194, 24, 91, 10)',
+                        'rgba(194, 24, 91, 10)',
+                        'rgba(194, 24, 91, 10)',
+                        'rgba(194, 24, 91, 10)',
+                        'rgba(194, 24, 91, 10)',
+                        'rgba(194, 24, 91, 10)',
+                        'rgba(194, 24, 91, 10)'
             ],
             borderColor: [
                 'rgba(255, 99, 132, 0.2)',
